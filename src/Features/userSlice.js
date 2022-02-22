@@ -6,6 +6,10 @@ export const userSlice = createSlice({
     user: null,
   },
   reducers: {
+    checkUser: (state, action) => {
+      state.user = action.payload;
+    },
+
     login: (state, action) => {
       state.user = action.payload;
     },
@@ -16,7 +20,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { checkUser, login, logout } = userSlice.actions;
 
 export const selectUser = (state) => state.user.user;
 

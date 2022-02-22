@@ -11,8 +11,8 @@ import {
 } from "@mui/material";
 import { Person as PersonIcon } from "@mui/icons-material";
 import { paperStyles } from "./LoginPage.styles";
-
 import { login } from "../Features/userSlice";
+import axiosBase from "../API/axiosBase";
 
 const renderTextField = ({
   input: { name, type, onChange, value },
@@ -34,18 +34,28 @@ const renderTextField = ({
 
 const LoginPage = () => {
   const dispatch = useDispatch();
-  const onSubmit = (values) => {
-    dispatch(
-      login({
-        username: values.username,
-        password: values.password,
-      })
-    );
+  const onLogin = async (values) => {
+    try {
+      const res = await axiosBase.post("/accounts/login", values);
+      const user = res.data;
+      if (res.status === 200) {
+        const userString = await JSON.stringify(user);
+        await localStorage.setItem("Token", userString);
+        dispatch(
+          login({
+            username: user.username,
+            token: user.token,
+          })
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <Form
-      onSubmit={onSubmit}
+      onSubmit={onLogin}
       render={({ handleSubmit, form, submitting, values }) => (
         <form onSubmit={handleSubmit} className="login-form">
           <Grid>

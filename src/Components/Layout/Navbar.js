@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -13,14 +13,36 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link as RouterLink } from "react-router-dom";
 import { Link } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { checkUser, logout } from "../../Features/userSlice";
 
 const pages = ["Matches", "List", "Messages"];
 const settings = ["Profile", "Logout"];
 
 const Navbar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const dispatch = useDispatch();
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { user } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    const userStorage = localStorage.getItem("Token");
+    const initial = userStorage ? JSON.parse(userStorage) : null;
+    dispatch(
+      checkUser({
+        username: initial.username,
+        token: initial.token,
+      })
+    );
+  }, []);
+
+  useEffect(() => {
+    if (user != null) {
+      return setIsAuthenticated(true);
+    }
+    return setIsAuthenticated(false);
+  }, [user]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -33,8 +55,15 @@ const Navbar = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (el) => {
     setAnchorElUser(null);
+    console.log(el.target);
+  };
+
+  const onLogout = async () => {
+    setAnchorElUser(null);
+    await localStorage.clear();
+    dispatch(logout());
   };
 
   return (
@@ -139,11 +168,12 @@ const Navbar = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
+                <MenuItem key="Profile" onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Profile</Typography>
+                </MenuItem>
+                <MenuItem key="Logout" onClick={onLogout}>
+                  <Typography textAlign="center">Logout</Typography>
+                </MenuItem>
               </Menu>
             </Box>
           ) : (
