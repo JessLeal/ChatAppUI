@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { Person as PersonIcon } from "@mui/icons-material";
 import { paperStyles } from "./LoginPage.styles";
-import { login } from "../Features/userSlice";
+import { signUp } from "../Features/userSlice";
 import axiosBase from "../API/axiosBase";
 
 const renderTextField = ({
@@ -33,17 +33,17 @@ const renderTextField = ({
   />
 );
 
-const LoginPage = () => {
+const SignUpPage = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
 
-  const onLogin = async (values) => {
+  const onSignUp = async (values) => {
     try {
-      const res = await axiosBase.post("/accounts/login", values);
+      const res = await axiosBase.post("/accounts/register", values);
       const userResult = res.data;
       if (res.status === 200) {
         dispatch(
-          login({
+          signUp({
             username: userResult.username,
             token: userResult.token,
           })
@@ -60,7 +60,7 @@ const LoginPage = () => {
     <>
       {!user ? (
         <Form
-          onSubmit={onLogin}
+          onSubmit={onSignUp}
           render={({ handleSubmit, form, submitting, values }) => (
             <form onSubmit={handleSubmit} className="login-form">
               <Grid>
@@ -73,12 +73,12 @@ const LoginPage = () => {
                       variant="h2"
                       noWrap
                       component="div"
-                      sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+                      sx={{ mr: 2, display: { md: "flex" } }}
                     >
-                      Login
+                      SignUp
                     </Typography>
                   </div>
-                  <FormControl className="login-inputs">
+                  <FormControl>
                     <Field
                       id="username"
                       name="username"
@@ -115,4 +115,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignUpPage;

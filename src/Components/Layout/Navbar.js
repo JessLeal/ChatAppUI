@@ -17,7 +17,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { checkUser, logout } from "../../Features/userSlice";
 
 const pages = ["Matches", "List", "Messages"];
-const settings = ["Profile", "Logout"];
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -29,13 +28,17 @@ const Navbar = () => {
   useEffect(() => {
     const userStorage = localStorage.getItem("Token");
     const initial = userStorage ? JSON.parse(userStorage) : null;
-    dispatch(
-      checkUser({
-        username: initial.username,
-        token: initial.token,
-      })
-    );
-  }, []);
+    if (initial != null) {
+      return dispatch(
+        checkUser({
+          username: initial.username,
+          token: initial.token,
+        })
+      );
+    }
+
+    return dispatch(checkUser(null));
+  }, [dispatch]);
 
   useEffect(() => {
     if (user != null) {
@@ -149,7 +152,7 @@ const Navbar = () => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -178,6 +181,17 @@ const Navbar = () => {
             </Box>
           ) : (
             <Box sx={{ flexGrow: 0 }}>
+              <span styles={{ marginRight: "20px" }}>
+                <Button
+                  component={RouterLink}
+                  to="/signup"
+                  variant="contained"
+                  color="warning"
+                  styles={{ marginRight: "20px" }}
+                >
+                  Sign Up
+                </Button>
+              </span>
               <Button
                 component={RouterLink}
                 to="/login"
