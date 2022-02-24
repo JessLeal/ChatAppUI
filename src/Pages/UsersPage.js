@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+import CircularProgress from "@mui/material/CircularProgress";
 import axiosBase from "../API/axiosBase";
 
 const UsersPage = () => {
@@ -23,7 +24,7 @@ const UsersPage = () => {
   return (
     <ul>
       {loading ? (
-        <h1>Loading</h1>
+        <CircularProgress />
       ) : !users ? (
         <h1>No users found</h1>
       ) : (

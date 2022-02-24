@@ -15,29 +15,36 @@ import { Link as RouterLink } from "react-router-dom";
 import { Link } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { checkUser, logout } from "../../Features/userSlice";
+import { startLoading, stopLoading } from "../../Features/loadingSlice";
 
-const pages = ["Matches", "List", "Messages"];
+const pages = ["Matches", "List", "Messages", "Users"];
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isLoading } = useSelector((state) => state.isLoading);
   const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
-    const userStorage = localStorage.getItem("Token");
-    const initial = userStorage ? JSON.parse(userStorage) : null;
-    if (initial != null) {
-      return dispatch(
-        checkUser({
-          username: initial.username,
-          token: initial.token,
-        })
-      );
-    }
-
-    return dispatch(checkUser(null));
+    const fetchUser = async () => {
+      dispatch(startLoading());
+      const userStorage = await localStorage.getItem("Token");
+      const initial = userStorage ? await JSON.parse(userStorage) : null;
+      if (initial != null) {
+        dispatch(
+          checkUser({
+            username: initial.username,
+            token: initial.token,
+          })
+        );
+        return dispatch(stopLoading());
+      }
+      dispatch(checkUser(null));
+      return dispatch(stopLoading());
+    };
+    fetchUser();
   }, [dispatch]);
 
   useEffect(() => {
@@ -89,42 +96,45 @@ const Navbar = () => {
               Chat App
             </Link>
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            {isAuthenticated ? (
+              <>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleOpenNavMenu}
+                  color="inherit"
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorElNav}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                  open={Boolean(anchorElNav)}
+                  onClose={handleCloseNavMenu}
+                  sx={{
+                    display: { xs: "block", md: "none" },
+                  }}
+                >
+                  {pages.map((page) => (
+                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">{page}</Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </>
+            ) : null}
           </Box>
           <Typography
             variant="h6"
@@ -136,19 +146,29 @@ const Navbar = () => {
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                component={RouterLink}
-                to={`/${page}`}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
+            {isLoading ? (
+              <>{null}</>
+            ) : isAuthenticated ? (
+              <>
+                {pages.map((page) => (
+                  <Button
+                    key={page}
+                    component={RouterLink}
+                    to={`/${page}`}
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                  >
+                    {page}
+                  </Button>
+                ))}
+              </>
+            ) : (
+              <>{null}</>
+            )}
           </Box>
-          {isAuthenticated ? (
+          {isLoading ? (
+            <>{null}</>
+          ) : isAuthenticated ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

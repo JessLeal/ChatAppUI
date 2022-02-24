@@ -8,6 +8,8 @@ import LoginPage from "./Pages/LoginPage";
 import SignUpPage from "./Pages/SignUpPage";
 import LandingPage from "./Pages/LandingPage.js";
 import { Container } from "@mui/material";
+import PageNotFound from "./Pages/PageNotFoundPage";
+import ProtectedRoute from "./Components/Layout/ProtectedRoute";
 
 function App() {
   return (
@@ -19,9 +21,13 @@ function App() {
             <Routes>
               <Route exact path="/" element={<LandingPage />} />
               <Route exact path="/home" element={<LandingPage />} />
-              <Route path="/users" element={<UsersPage />} />
+              <Route
+                path="/users"
+                element={<ProtectedRoute component={<UsersPage />} />}
+              />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
+              <Route path="*" element={<PageNotFound />} />
             </Routes>
           </Container>
         </div>
