@@ -6,9 +6,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.response.use(
   (response) => response,
-  (error) => {
-    return error;
-  }
+  (error) => error.response
 );
 
 export default axiosInstance;

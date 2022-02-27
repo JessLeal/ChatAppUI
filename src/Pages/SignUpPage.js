@@ -55,9 +55,23 @@ const SignUpPage = () => {
       const userString = await JSON.stringify(userResult);
       await localStorage.setItem("Token", userString);
     }
-
-    setSnackbarMessage(res.response.data);
+    const errorMessageFx = () => {
+      if (res.data.errors) {
+        const modalStateErrors = [];
+        for (const key in res.data.errors) {
+          if (res.data.errors[key]) {
+            modalStateErrors.push(res.data.errors[key]);
+          }
+        }
+        return modalStateErrors.flat();
+      }
+      return res.data;
+    };
+    const errorMessage = errorMessageFx();
+    console.log(errorMessage);
+    setSnackbarMessage(errorMessage);
     setSnackbarOpen(true);
+    return;
   };
 
   const onSnackbarClose = () => {

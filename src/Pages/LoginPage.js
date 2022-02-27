@@ -44,7 +44,7 @@ const LoginPage = () => {
 
   const onLogin = async (values) => {
     const res = await axiosBase.post("/accounts/login", values);
-    if (res.status === 200) {
+    if (res.staus === 200) {
       const userResult = res.data;
       dispatch(
         login({
@@ -53,10 +53,25 @@ const LoginPage = () => {
         })
       );
       const userString = await JSON.stringify(userResult);
-      await localStorage.setItem("Token", userString);
+      return await localStorage.setItem("Token", userString);
     }
-    setSnackbarMessage(res.response.data);
+    const errorMessageFx = () => {
+      if (res.data.errors) {
+        const modalStateErrors = [];
+        for (const key in res.data.errors) {
+          if (res.data.errors[key]) {
+            modalStateErrors.push(res.data.errors[key]);
+          }
+        }
+        return modalStateErrors.flat();
+      }
+      return res.data;
+    };
+    const errorMessage = errorMessageFx();
+    console.log(errorMessage);
+    setSnackbarMessage(errorMessage);
     setSnackbarOpen(true);
+    return;
   };
 
   const onSnackbarClose = () => {
@@ -116,20 +131,22 @@ const LoginPage = () => {
               </form>
             )}
           />
-          <Snackbar
-            open={snackbarOpen}
-            autoHideDuration={6000}
-            onClose={onSnackbarClose}
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-          >
-            <Alert
+          <>
+            <Snackbar
+              open={snackbarOpen}
+              autoHideDuration={6000}
               onClose={onSnackbarClose}
-              severity="error"
-              sx={{ width: "100%" }}
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             >
-              {snackbarMessage}
-            </Alert>
-          </Snackbar>
+              <Alert
+                onClose={onSnackbarClose}
+                severity="error"
+                sx={{ width: "100%" }}
+              >
+                {snackbarMessage}
+              </Alert>
+            </Snackbar>
+          </>
         </>
       ) : (
         <Navigate to="/" />
