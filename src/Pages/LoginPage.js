@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Form, Field } from "react-final-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
@@ -10,10 +9,9 @@ import {
   Grid,
   Paper,
   Avatar,
-  Snackbar,
-  Alert,
 } from "@mui/material";
 import { Person as PersonIcon } from "@mui/icons-material";
+import { useSnackbar } from "notistack";
 import { paperStyles } from "./LoginPage.styles";
 import { login } from "../Features/userSlice";
 import axiosBase from "../API/axiosBase";
@@ -39,13 +37,13 @@ const renderTextField = ({
 const LoginPage = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const onLogin = async (values) => {
     const res = await axiosBase.post("/accounts/login", values);
-    if (res.staus === 200) {
+    if (res.status === 200) {
       const userResult = res.data;
+
       dispatch(
         login({
           username: userResult.username,
@@ -63,20 +61,15 @@ const LoginPage = () => {
             modalStateErrors.push(res.data.errors[key]);
           }
         }
-        return modalStateErrors.flat();
+        return modalStateErrors.map((msg) => {
+          return enqueueSnackbar(msg, {
+            variant: "error",
+          });
+        });
       }
       return res.data;
     };
-    const errorMessage = errorMessageFx();
-    console.log(errorMessage);
-    setSnackbarMessage(errorMessage);
-    setSnackbarOpen(true);
-    return;
-  };
-
-  const onSnackbarClose = () => {
-    setSnackbarMessage("");
-    setSnackbarOpen(false);
+    return errorMessageFx();
   };
 
   return (
@@ -131,22 +124,6 @@ const LoginPage = () => {
               </form>
             )}
           />
-          <>
-            <Snackbar
-              open={snackbarOpen}
-              autoHideDuration={6000}
-              onClose={onSnackbarClose}
-              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            >
-              <Alert
-                onClose={onSnackbarClose}
-                severity="error"
-                sx={{ width: "100%" }}
-              >
-                {snackbarMessage}
-              </Alert>
-            </Snackbar>
-          </>
         </>
       ) : (
         <Navigate to="/" />

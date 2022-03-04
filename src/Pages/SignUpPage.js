@@ -14,6 +14,7 @@ import {
   Alert,
 } from "@mui/material";
 import { Person as PersonIcon } from "@mui/icons-material";
+import { useSnackbar } from "notistack";
 import { paperStyles } from "./LoginPage.styles";
 import { signUp } from "../Features/userSlice";
 import axiosBase from "../API/axiosBase";
@@ -41,6 +42,7 @@ const SignUpPage = () => {
   const { user } = useSelector((state) => state.user);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const onSignUp = async (values) => {
     const res = await axiosBase.post("/accounts/register", values);
@@ -56,6 +58,7 @@ const SignUpPage = () => {
       await localStorage.setItem("Token", userString);
     }
     const errorMessageFx = () => {
+      console.log(res);
       if (res.data.errors) {
         const modalStateErrors = [];
         for (const key in res.data.errors) {
@@ -63,15 +66,17 @@ const SignUpPage = () => {
             modalStateErrors.push(res.data.errors[key]);
           }
         }
-        return modalStateErrors.flat();
+        return modalStateErrors.map((msg) => {
+          return enqueueSnackbar(msg, {
+            variant: "error",
+          });
+        });
       }
-      return res.data;
+      return enqueueSnackbar(res.data, {
+        variant: "error",
+      });
     };
-    const errorMessage = errorMessageFx();
-    console.log(errorMessage);
-    setSnackbarMessage(errorMessage);
-    setSnackbarOpen(true);
-    return;
+    return errorMessageFx();
   };
 
   const onSnackbarClose = () => {
