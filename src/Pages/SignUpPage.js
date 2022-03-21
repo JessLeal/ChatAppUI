@@ -19,16 +19,12 @@ import { paperStyles } from "./LoginPage.styles";
 import { signUp } from "../Features/userSlice";
 import axiosBase from "../API/axiosBase";
 
-const renderTextField = ({
-  input: { name, type, onChange, value },
-  meta,
-  ...rest
-}) => (
+const renderTextField = ({ input: { name, type, onChange, value }, meta, ...rest }) => (
   <TextField
     {...rest}
     type={type}
-    variant="outlined"
-    margin="normal"
+    variant='outlined'
+    margin='normal'
     name={name}
     helperText={meta.touched ? meta.error : undefined}
     error={meta.error && meta.touched}
@@ -46,19 +42,20 @@ const SignUpPage = () => {
 
   const onSignUp = async (values) => {
     const res = await axiosBase.post("/accounts/register", values);
-    const userResult = res.data;
+
     if (res.status === 200) {
+      const userResult = res.data;
+      const userString = await JSON.stringify(userResult);
       dispatch(
         signUp({
           username: userResult.username,
-          token: userResult.token,
+          token: userString,
         })
       );
-      const userString = await JSON.stringify(userResult);
-      await localStorage.setItem("Token", userString);
+
+      return await localStorage.setItem("Token", userString);
     }
     const errorMessageFx = () => {
-      console.log(res);
       if (res.data.errors) {
         const modalStateErrors = [];
         for (const key in res.data.errors) {
@@ -91,43 +88,41 @@ const SignUpPage = () => {
           <Form
             onSubmit={onSignUp}
             render={({ handleSubmit, form, submitting, values }) => (
-              <form onSubmit={handleSubmit} className="login-form">
+              <form onSubmit={handleSubmit} className='login-form'>
                 <Grid>
                   <Paper elevation={3} style={paperStyles}>
-                    <div className="login-title">
+                    <div className='login-title'>
                       <Avatar sx={{ width: 56, height: 56 }}>
                         <PersonIcon />
                       </Avatar>
                       <Typography
-                        variant="h2"
+                        variant='h2'
                         noWrap
-                        component="div"
-                        sx={{ mr: 2, display: { md: "flex" } }}
-                      >
+                        component='div'
+                        sx={{ mr: 2, display: { md: "flex" } }}>
                         SignUp
                       </Typography>
                     </div>
                     <FormControl>
                       <Field
-                        id="username"
-                        name="username"
-                        label="Username"
-                        type="text"
+                        id='username'
+                        name='username'
+                        label='Username'
+                        type='text'
                         component={renderTextField}
                       />
                       <Field
-                        id="password"
-                        name="password"
-                        label="Password"
-                        type="password"
+                        id='password'
+                        name='password'
+                        label='Password'
+                        type='password'
                         component={renderTextField}
                       />
                       <Button
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                        disabled={submitting}
-                      >
+                        variant='contained'
+                        color='primary'
+                        type='submit'
+                        disabled={submitting}>
                         Submit
                       </Button>
                     </FormControl>
@@ -140,19 +135,14 @@ const SignUpPage = () => {
             open={snackbarOpen}
             autoHideDuration={6000}
             onClose={onSnackbarClose}
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-          >
-            <Alert
-              onClose={onSnackbarClose}
-              severity="error"
-              sx={{ width: "100%" }}
-            >
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
+            <Alert onClose={onSnackbarClose} severity='error' sx={{ width: "100%" }}>
               {snackbarMessage}
             </Alert>
           </Snackbar>
         </>
       ) : (
-        <Navigate to="/" />
+        <Navigate to='/' />
       )}
       ;
     </>

@@ -11,26 +11,28 @@ import { Container } from "@mui/material";
 import PageNotFound from "./Pages/PageNotFoundPage";
 import ProtectedRoute from "./Components/Layout/ProtectedRoute";
 import TestErrors from "./Pages/TestErrors";
+import Messages from "./Pages/Messages";
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <Router>
         <div>
           <Navbar />
-          <Container className="app-container">
+          <Container className='app-container'>
             <Routes>
-              <Route exact path="/" element={<LandingPage />} />
-              <Route exact path="/home" element={<LandingPage />} />
-              <Route path="/errors/test" element={<TestErrors />} />
+              <Route exact path='/' element={<LandingPage />} />
+              <Route exact path='/home' element={<LandingPage />} />
+              <Route path='/errors/test' element={<TestErrors />} />
+              <Route path='/users' element={<ProtectedRoute component={<UsersPage />} />} />
               <Route
-                path="/users"
-                element={<ProtectedRoute component={<UsersPage />} />}
+                path='/messages/:receiverUsername'
+                element={<ProtectedRoute component={<Messages />} />}
               />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/signup" element={<SignUpPage />} />
-              <Route path="/NotFound" element={<PageNotFound />} />
-              <Route path="*" element={<PageNotFound />} />
+              <Route path='/login' element={<LoginPage />} />
+              <Route path='/signup' element={<SignUpPage />} />
+              <Route path='/NotFound' element={<PageNotFound />} />
+              <Route path='*' element={<PageNotFound />} />
             </Routes>
           </Container>
         </div>

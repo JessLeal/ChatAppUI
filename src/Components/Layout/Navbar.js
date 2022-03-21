@@ -35,8 +35,7 @@ const Navbar = () => {
       if (initial != null) {
         dispatch(
           checkUser({
-            username: initial.username,
-            token: initial.token,
+            ...initial,
           })
         );
         return dispatch(stopLoading());
@@ -67,7 +66,6 @@ const Navbar = () => {
 
   const handleCloseUserMenu = (el) => {
     setAnchorElUser(null);
-    console.log(el.target);
   };
 
   const onLogout = async () => {
@@ -77,22 +75,20 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static" className="appbar">
-      <Container maxWidth="xl">
+    <AppBar position='static' className='appbar'>
+      <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <Typography
-            variant="h6"
+            variant='h6'
             noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" }, color: "white" }}
-          >
+            component='div'
+            sx={{ mr: 2, display: { xs: "none", md: "flex" }, color: "white" }}>
             <Link
               component={RouterLink}
-              to="/"
-              variant="inherit"
+              to='/'
+              variant='inherit'
               sx={{ color: "white" }}
-              underline="none"
-            >
+              underline='none'>
               Chat App
             </Link>
           </Typography>
@@ -100,17 +96,16 @@ const Navbar = () => {
             {isAuthenticated ? (
               <>
                 <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
+                  size='large'
+                  aria-label='account of current user'
+                  aria-controls='menu-appbar'
+                  aria-haspopup='true'
                   onClick={handleOpenNavMenu}
-                  color="inherit"
-                >
+                  color='inherit'>
                   <MenuIcon />
                 </IconButton>
                 <Menu
-                  id="menu-appbar"
+                  id='menu-appbar'
                   anchorEl={anchorElNav}
                   anchorOrigin={{
                     vertical: "bottom",
@@ -125,11 +120,10 @@ const Navbar = () => {
                   onClose={handleCloseNavMenu}
                   sx={{
                     display: { xs: "block", md: "none" },
-                  }}
-                >
+                  }}>
                   {pages.map((page) => (
                     <MenuItem key={page} onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">{page}</Typography>
+                      <Typography textAlign='center'>{page}</Typography>
                     </MenuItem>
                   ))}
                 </Menu>
@@ -137,11 +131,10 @@ const Navbar = () => {
             ) : null}
           </Box>
           <Typography
-            variant="h6"
+            variant='h6'
             noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-          >
+            component='div'
+            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             CHAT APP
           </Typography>
 
@@ -156,8 +149,7 @@ const Navbar = () => {
                     component={RouterLink}
                     to={`/${page}`}
                     onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "white", display: "block" }}
-                  >
+                    sx={{ my: 2, color: "white", display: "block" }}>
                     {page}
                   </Button>
                 ))}
@@ -170,14 +162,15 @@ const Navbar = () => {
             <>{null}</>
           ) : isAuthenticated ? (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
+              {user?.username}
+              <Tooltip title='Open settings'>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar />
                 </IconButton>
               </Tooltip>
               <Menu
                 sx={{ mt: "45px" }}
-                id="menu-appbar"
+                id='menu-appbar'
                 anchorEl={anchorElUser}
                 anchorOrigin={{
                   vertical: "top",
@@ -189,13 +182,12 @@ const Navbar = () => {
                   horizontal: "right",
                 }}
                 open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                <MenuItem key="Profile" onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">Profile</Typography>
+                onClose={handleCloseUserMenu}>
+                <MenuItem key='Profile' onClick={handleCloseUserMenu}>
+                  <Typography textAlign='center'>Profile</Typography>
                 </MenuItem>
-                <MenuItem key="Logout" onClick={onLogout}>
-                  <Typography textAlign="center">Logout</Typography>
+                <MenuItem key='Logout' onClick={onLogout}>
+                  <Typography textAlign='center'>Logout</Typography>
                 </MenuItem>
               </Menu>
             </Box>
@@ -204,20 +196,14 @@ const Navbar = () => {
               <span styles={{ marginRight: "20px" }}>
                 <Button
                   component={RouterLink}
-                  to="/signup"
-                  variant="contained"
-                  color="warning"
-                  styles={{ marginRight: "20px" }}
-                >
+                  to='/signup'
+                  variant='contained'
+                  color='warning'
+                  styles={{ marginRight: "20px" }}>
                   Sign Up
                 </Button>
               </span>
-              <Button
-                component={RouterLink}
-                to="/login"
-                variant="contained"
-                color="warning"
-              >
+              <Button component={RouterLink} to='/login' variant='contained' color='warning'>
                 Login
               </Button>
             </Box>
