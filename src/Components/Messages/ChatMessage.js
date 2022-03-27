@@ -1,26 +1,25 @@
-import React from "react";
-import { Grid, Paper, Typography } from "@mui/material";
+import React from 'react';
 
 export const SenderChatMessage = ({ message }) => {
-  const { senderUsername, content } = message;
+  const { senderKnownAs, content } = message;
   return (
-    <Grid container item xs={12} sx={{ justifyContent: "right" }}>
-      <Paper elevation={3} sx={{ width: "max-content" }}>
-        <Typography variant='body1'>{senderUsername}</Typography>
-        <Typography variant='body2'>{content}</Typography>
-      </Paper>
-    </Grid>
+    <div className='chat-sender-container'>
+      <div className='chat-sender'>
+        <p className='chat-sender-name'>{senderKnownAs}</p>
+        <p className='chat-content'>{content}</p>
+      </div>
+    </div>
   );
 };
 
 export const ReceiverChatMessage = ({ message }) => {
-  const { senderUsername, content } = message;
+  const { senderKnownAs, content } = message;
   return (
-    <Grid container item xs={12}>
-      <Paper elevation={3} sx={{ width: "max-content" }}>
-        <Typography variant='body1'>{senderUsername}</Typography>
-        <Typography variant='body2'>{content}</Typography>
-      </Paper>
-    </Grid>
+    <div className='chat-receiver-container'>
+      <div className='chat-receiver'>
+        <p className='chat-sender-name'>{senderKnownAs}</p>
+        <p className='chat-content'>{content}</p>
+      </div>
+    </div>
   );
 };

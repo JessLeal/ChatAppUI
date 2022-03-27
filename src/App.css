@@ -1,3 +1,47 @@
-.app-container {
-  margin-top: 10px;
+:root {
+  /* colors */
+  --light_grey: #f9f9fc;
+  --light_grey_2: #f8f8f9;
+  --outer_space: #2e3532;
+  --emerald: #23ce6b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+
+  font-family: 'Helvetica', sans-serif;
+}
+
+.App {
+  background-color: var(--light_grey);
+  height: 100vh;
+  width: 100%;
+  overflow: auto;
+  color: var(--outer_space);
+}
+
+.App .layout-container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: max-content 12fr;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
 }

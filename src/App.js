@@ -1,41 +1,61 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { checkUser } from './Features/userSlice';
+import { startLoading, stopLoading } from './Features/loadingSlice';
 
-import "./App.css";
-
-import Navbar from "./Components/Layout/Navbar";
-import UsersPage from "./Pages/UsersPage";
-import LoginPage from "./Pages/LoginPage";
-import SignUpPage from "./Pages/SignUpPage";
-import LandingPage from "./Pages/LandingPage.js";
-import { Container } from "@mui/material";
-import PageNotFound from "./Pages/PageNotFoundPage";
-import ProtectedRoute from "./Components/Layout/ProtectedRoute";
-import TestErrors from "./Pages/TestErrors";
-import Messages from "./Pages/Messages";
+import ProtectedRoute from './Components/Layout/ProtectedRoute';
+import LandingPage from './Pages/LandingPage';
+import LoginPage from './Pages/LoginPage';
+import MessagesPage from './Pages/MessagesPage';
+import PageNotFound from './Pages/PageNotFoundPage';
+import ProfilePage from './Pages/ProfilePage';
+import SettingsPage from './Pages/SettingsPage';
+import SignUpPage from './Pages/SignUpPage';
+import AuthorizedPageContainer from './Pages/AuthorizedPageContainer';
+import './App.css';
 
 function App() {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      dispatch(startLoading());
+      const userStorage = await localStorage.getItem('Token');
+      const initial = userStorage ? await JSON.parse(userStorage) : null;
+      if (initial != null) {
+        dispatch(
+          checkUser({
+            ...initial
+          })
+        );
+        return dispatch(stopLoading());
+      }
+      dispatch(checkUser({}));
+      return dispatch(stopLoading());
+    };
+    fetchUser();
+  }, [dispatch]);
+
   return (
     <div className='App'>
       <Router>
-        <div>
-          <Navbar />
-          <Container className='app-container'>
-            <Routes>
-              <Route exact path='/' element={<LandingPage />} />
-              <Route exact path='/home' element={<LandingPage />} />
-              <Route path='/errors/test' element={<TestErrors />} />
-              <Route path='/users' element={<ProtectedRoute component={<UsersPage />} />} />
-              <Route
-                path='/messages/:receiverUsername'
-                element={<ProtectedRoute component={<Messages />} />}
-              />
-              <Route path='/login' element={<LoginPage />} />
-              <Route path='/signup' element={<SignUpPage />} />
-              <Route path='/NotFound' element={<PageNotFound />} />
-              <Route path='*' element={<PageNotFound />} />
-            </Routes>
-          </Container>
-        </div>
+        <Routes>
+          <Route exact path='/' element={<LandingPage />} />
+          <Route exact path='/home' element={<LandingPage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/signup' element={<SignUpPage />} />
+          {user && (
+            <Route element={<ProtectedRoute component={<AuthorizedPageContainer />} />}>
+              <Route path='/messages' element={<MessagesPage />} />
+              <Route path='/messages/:receiverUsername' element={<MessagesPage />} />
+              <Route path='/profile' element={<ProfilePage />} />
+              <Route path='/settings' element={<SettingsPage />} />
+            </Route>
+          )}
+          <Route path='*' element={<PageNotFound />} />
+        </Routes>
       </Router>
     </div>
   );
