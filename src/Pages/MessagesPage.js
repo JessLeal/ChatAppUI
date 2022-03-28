@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { HubConnectionBuilder, HttpTransportType } from '@microsoft/signalr';
 
 import ChatThread from '../Components/Messages/ChatThread';
@@ -21,6 +21,7 @@ const MessagesPage = () => {
 
   const { user } = useSelector((state) => state.user);
   const { receiverUsername } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     if (user.token) {
@@ -93,7 +94,7 @@ const MessagesPage = () => {
     <div className='message-container'>
       <Inbox inboxMessage={inboxMessage} receiverUsername={receiverUsername} />
       <div className={`message-thread-container ${!receiverUsername ? 'conditional-hide' : ''} `}>
-        <div className='chat-thread-label'>{receiverUsername}</div>
+        <div className='chat-thread-label'>{searchParams.get('messageKnownAs') || ''}</div>
         <ChatThread chat={chat} receiverUsername={receiverUsername} />
         <MessageForm receiverUsername={receiverUsername} sendMessage={sendMessage} />
       </div>

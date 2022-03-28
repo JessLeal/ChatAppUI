@@ -66,7 +66,7 @@ const Sidebar = () => {
         <div className='profile'>
           <div className='profile-details'>
             {/* <img src='profile.jpg'/> */}
-            <div className='name'>{user?.username}</div>
+            <div className='name'>{user?.knownAs}</div>
           </div>
           <LogoutOutlinedIcon id='logout' className='svg-icon' onClick={onLogout} />
         </div>

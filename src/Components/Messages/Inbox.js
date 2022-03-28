@@ -7,8 +7,8 @@ const Inbox = ({ inboxMessage, receiverUsername }) => {
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
-  const handleClick = (senderUsername) => {
-    navigate(`/messages/${senderUsername}`);
+  const handleClick = (messageUsername, messageKnownAs) => {
+    navigate(`/messages/${messageUsername}?messageKnownAs=${messageKnownAs}`);
   };
 
   return (
@@ -17,12 +17,13 @@ const Inbox = ({ inboxMessage, receiverUsername }) => {
       {inboxMessage.map((m) => {
         const messageUsername =
           user?.username === m.senderUsername ? m.recipientUsername : m.senderUsername;
-
+        const messageKnownAs =
+          user?.knownAs === m.senderKnownAs ? m.recipientKnownAs : m.senderKnownAs;
         return (
           <div
             className='inbox-message-container'
             key={messageUsername}
-            onClick={() => handleClick(messageUsername)}>
+            onClick={() => handleClick(messageUsername, messageKnownAs)}>
             <div className='message-avatar'></div>
             <div className='message-inner'>
               <div className='message-header'>
