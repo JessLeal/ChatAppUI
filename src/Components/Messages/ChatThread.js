@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 
@@ -6,6 +6,16 @@ import { ReceiverChatMessage, SenderChatMessage } from './ChatMessage';
 
 const ChatThread = ({ chat }) => {
   const { user } = useSelector((state) => state.user);
+
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chat]);
 
   return (
     <div className='chat-thread-container'>
@@ -18,6 +28,7 @@ const ChatThread = ({ chat }) => {
           );
         })}
       </div>
+      <div ref={messagesEndRef} />
     </div>
   );
 };

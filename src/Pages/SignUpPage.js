@@ -52,7 +52,7 @@ const SignUpPage = () => {
     <div className='signUp-container'>
       {Object.keys(user).length === 0 ? (
         <>
-          <div className='signUp-image-container'>
+          <div className='signUp-image-container conditional-hide'>
             <img
               src={process.env.PUBLIC_URL + 'images/things_to_say.svg'}
               alt='things_to_say-graphic'

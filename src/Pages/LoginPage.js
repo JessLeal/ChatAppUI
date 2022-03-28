@@ -53,7 +53,7 @@ const LoginPage = () => {
       {console.log(Object.keys(user).length)}
       {Object.keys(user).length === 0 ? (
         <>
-          <div className='login-image-container'>
+          <div className='login-image-container conditional-hide'>
             <img
               src={process.env.PUBLIC_URL + 'images/password.svg'}
               alt='password-graphic'

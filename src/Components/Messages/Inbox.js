@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
-const Inbox = ({ inboxMessage }) => {
+const Inbox = ({ inboxMessage, receiverUsername }) => {
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
@@ -12,7 +12,7 @@ const Inbox = ({ inboxMessage }) => {
   };
 
   return (
-    <div className='inbox-container'>
+    <div className={`inbox-container ${receiverUsername ? 'conditional-hide' : ''} `}>
       <div className='inbox-label'>Inbox</div>
       {inboxMessage.map((m) => {
         const messageUsername =

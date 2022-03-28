@@ -1,7 +1,6 @@
 .sidebar {
   top: 0;
   left: 0;
-  height: 100%;
   width: 11rem;
   background: var(--emerald);
   display: flex;
@@ -10,6 +9,8 @@
 
 .sidebar .logo-content {
   padding: 0 0.9rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 .sidebar .logo-content:hover {
@@ -34,16 +35,26 @@
   font-weight: 400;
 }
 
+.sidebar .menu-container {
+  display: flex;
+}
+
+.sidebar .menu-button {
+  align-self: center;
+  display: none;
+}
+
 .sidebar .nav-list {
   flex: 1;
-  padding: 0.8rem 0.9rem;
+  padding: 0.8rem 0;
 }
 
-li {
+.sidebar li {
   list-style: none;
+  width: 100%;
 }
 
-li a {
+.sidebar li a {
   display: flex;
   align-items: center;
   padding: 0.4rem;
@@ -54,9 +65,14 @@ li a {
   text-decoration: none;
 }
 
+.sidebar li a.active {
+  background-color: var(--outer_space);
+}
+
 .sidebar .svg-icon {
   font-size: 1.5rem;
-  margin-right: 0.4rem;
+  margin-right: 0.5rem;
+  color: var(--light_grey);
 }
 
 .sidebar .profile-content .profile {
@@ -68,4 +84,8 @@ li a {
   color: var(--light_grey);
   font-size: 1rem;
   font-weight: 300;
+}
+
+.conditional-hide {
+  display: auto;
 }

@@ -1,18 +1,21 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../Features/userSlice';
 
 //Icons
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import WifiTetheringOutlinedIcon from '@mui/icons-material/WifiTetheringOutlined';
 
 import './Sidebar.css';
 
 const Sidebar = () => {
+  const [menuActive, setMenuActive] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -26,34 +29,40 @@ const Sidebar = () => {
 
   return (
     <div className='sidebar'>
-      <div className='logo-content' onClick={() => navigate('/')}>
-        <div className='logo'>
+      <div className='logo-content'>
+        <div className='logo' onClick={() => navigate('/')}>
           <WifiTetheringOutlinedIcon />
           <div className='logo-name'>ChatApp</div>
         </div>
-        {/* <MenuIcon className='bx bx-menu' id='menu-button' /> */}
+        <div className='menu-container' onClick={() => setMenuActive(!menuActive)}>
+          {menuActive ? (
+            <CloseOutlinedIcon className='menu-button svg-icon' />
+          ) : (
+            <MenuOutlinedIcon className='menu-button svg-icon' />
+          )}
+        </div>
       </div>
-      <ul className='nav-list'>
+      <ul className={`nav-list ${!menuActive && 'conditional-hide'}`}>
         <li>
-          <Link to='/messages'>
+          <NavLink to='/messages'>
             <ForumOutlinedIcon className='svg-icon' />
             <span className='link-name'>Messages</span>
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to='/profile'>
+          <NavLink to='/profile'>
             <AccountCircleOutlinedIcon className='svg-icon' />
             <span className='link-name'>Profile</span>
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to='/settings'>
+          <NavLink to='/settings'>
             <SettingsOutlinedIcon className='svg-icon' />
             <span className='link-name'>Settings</span>
-          </Link>
+          </NavLink>
         </li>
       </ul>
-      <div className='profile-content'>
+      <div className={`profile-content ${!menuActive && 'conditional-hide'}`}>
         <div className='profile'>
           <div className='profile-details'>
             {/* <img src='profile.jpg'/> */}

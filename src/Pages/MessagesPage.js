@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { HubConnectionBuilder } from '@microsoft/signalr';
@@ -51,7 +51,7 @@ const MessagesPage = () => {
 
           connection.on('NewMessage', (message) => {
             const updateChat = [...latestChat.current, message];
-            setChat(updateChat);
+            setChat([...new Set(updateChat)]);
           });
 
           connection.on('NewInboxMessage', (message) => {
@@ -87,10 +87,10 @@ const MessagesPage = () => {
 
   return (
     <div className='message-container'>
-      <Inbox inboxMessage={inboxMessage} />
-      <div className='message-thread-container'>
+      <Inbox inboxMessage={inboxMessage} receiverUsername={receiverUsername} />
+      <div className={`message-thread-container ${!receiverUsername ? 'conditional-hide' : ''} `}>
         <div className='chat-thread-label'>{receiverUsername}</div>
-        <ChatThread chat={chat} />
+        <ChatThread chat={chat} receiverUsername={receiverUsername} />
         <MessageForm receiverUsername={receiverUsername} sendMessage={sendMessage} />
       </div>
     </div>
