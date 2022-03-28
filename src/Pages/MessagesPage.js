@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { HubConnectionBuilder } from '@microsoft/signalr';
+import { HubConnectionBuilder, HttpTransportType } from '@microsoft/signalr';
 
 import ChatThread from '../Components/Messages/ChatThread';
 import MessageForm from '../Components/Messages/MessageForm';
@@ -23,13 +23,17 @@ const MessagesPage = () => {
   const { receiverUsername } = useParams();
 
   useEffect(() => {
-    const newConnection = new HubConnectionBuilder()
-      .withUrl(`https://localhost:5001/hubs/message?user=${receiverUsername}`, {
-        accessTokenFactory: () => user.token
-      })
-      .withAutomaticReconnect()
-      .build();
-    setConnection(newConnection);
+    if (user.token) {
+      const newConnection = new HubConnectionBuilder()
+        .withUrl(`https://localhost:5001/hubs/message?user=${receiverUsername}`, {
+          accessTokenFactory: () => user.token,
+          skipNegotiation: true,
+          transport: HttpTransportType.WebSockets
+        })
+        .withAutomaticReconnect()
+        .build();
+      setConnection(newConnection);
+    }
   }, [receiverUsername, user.token]);
 
   useEffect(() => {
