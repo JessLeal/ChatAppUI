@@ -91,14 +91,29 @@ const MessagesPage = () => {
   };
 
   return (
-    <div className='message-container'>
-      <Inbox inboxMessage={inboxMessage} receiverUsername={receiverUsername} />
-      <div className={`message-thread-container ${!receiverUsername ? 'conditional-hide' : ''} `}>
-        <div className='chat-thread-label'>{searchParams.get('messageKnownAs') || ''}</div>
-        <ChatThread chat={chat} receiverUsername={receiverUsername} />
-        <MessageForm receiverUsername={receiverUsername} sendMessage={sendMessage} />
-      </div>
-    </div>
+    <>
+      {connection ? (
+        <div className='message-container'>
+          <Inbox inboxMessage={inboxMessage} receiverUsername={receiverUsername} />
+          <div
+            className={`message-thread-container ${!receiverUsername ? 'conditional-hide' : ''} `}>
+            {searchParams.get('action') === 'new' ? (
+              <div>SearchUser</div>
+            ) : (
+              <>
+                <div className='chat-thread-label'>
+                  {searchParams.get('messageKnownAs') || receiverUsername}
+                </div>
+                <ChatThread chat={chat} receiverUsername={receiverUsername} />
+                <MessageForm receiverUsername={receiverUsername} sendMessage={sendMessage} />
+              </>
+            )}
+          </div>
+        </div>
+      ) : (
+        <h1>An error occured please try again later</h1>
+      )}
+    </>
   );
 };
 

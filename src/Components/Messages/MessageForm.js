@@ -27,7 +27,7 @@ const MessageForm = ({ sendMessage }) => {
               </>
             )}
           />
-          <button type='submit' disabled={submitting} className='message-send-button'>
+          <button type='submit' disabled={submitting} className='message-send-button' title='Send'>
             <SendOutlinedIcon />
           </button>
         </form>

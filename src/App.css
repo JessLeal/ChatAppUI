@@ -3,7 +3,11 @@
   --light_grey: #f9f9fc;
   --light_grey_2: #f8f8f9;
   --outer_space: #2e3532;
-  --emerald: #23ce6b;
+  --accent: rgb(35, 206, 107);
+  --accent-blur: rgb(35, 206, 107, 0.2);
+  /* --accent: rgb(107, 35, 206);
+  --accent-blur: rgb(107, 35, 206, 0.2); */
+  --inner-border: rgb(0, 0, 0, 0.1);
 }
 
 * {

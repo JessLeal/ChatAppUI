@@ -9,6 +9,28 @@
 .inbox-container {
   display: flex;
   flex-direction: column;
+  border-right: 1px solid var(--inner-border);
+}
+
+.inbox-container .inbox-label-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inbox-container .message-new-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent);
+  border: 0.05rem solid var(--accent);
+  border-radius: 0.3rem;
+  color: white;
+  width: 3rem;
+  height: 3rem;
+  padding: 0 0.5rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
 }
 
 .inbox-container .inbox-label {
@@ -17,6 +39,15 @@
   font-size: 2rem;
   height: 4rem;
   padding: 0 0.9rem;
+}
+
+.inbox-container a {
+  text-decoration: none;
+  color: var(--outer_space);
+}
+
+.inbox-container a.active {
+  background-color: var(--accent-blur);
 }
 
 .inbox-container .inbox-message-container {
@@ -36,7 +67,7 @@
 
 .message-avatar {
   background-color: white;
-  border: 0.1rem solid var(--emerald);
+  border: 0.1rem solid var(--accent);
   border-radius: 100%;
   display: inline-block;
   height: 2rem;
@@ -62,7 +93,8 @@
 .message-time {
   display: inline-block;
   font-size: 0.8rem;
-  color: var(--emerald);
+  color: var(--outer_space);
+  opacity: 0.6;
 }
 
 .message-content {
@@ -125,7 +157,7 @@
 
 .chat-sender {
   border-radius: 0.5rem;
-  background-color: var(--emerald);
+  background-color: var(--accent);
   padding: 0.3rem 0.5rem;
   max-width: 70%;
 }
@@ -160,9 +192,10 @@
 .message-send-button {
   display: flex;
   align-items: center;
+  cursor: pointer;
   justify-content: center;
-  background-color: var(--emerald);
-  border: 0.05rem solid var(--emerald);
+  background-color: var(--accent);
+  border: 0.05rem solid var(--accent);
   border-radius: 0.3rem;
   color: white;
   width: 3rem;

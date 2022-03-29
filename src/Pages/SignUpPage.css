@@ -17,7 +17,7 @@
   position: absolute;
   content: '';
   clip-path: circle(69.2% at 1% 99%);
-  background-color: var(--emerald);
+  background-color: var(--accent);
   left: 0;
   bottom: 0;
 }
@@ -40,7 +40,7 @@
   border-radius: 0.3rem;
   box-sizing: border-box;
   padding: 2rem;
-  border: 1px solid var(--emerald);
+  border: 1px solid var(--accent);
 }
 
 .signUp-label {
@@ -68,8 +68,8 @@
 }
 
 .signUp-button {
-  background-color: var(--emerald);
-  border: 0.1rem solid var(--emerald);
+  background-color: var(--accent);
+  border: 0.1rem solid var(--accent);
   border-radius: 0.3rem;
   color: white;
   height: 2rem;
