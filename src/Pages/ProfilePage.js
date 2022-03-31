@@ -1,7 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import './ProfilePage.css';
 
 const ProfilePage = () => {
-  return <div>ProfilePage</div>;
+  const { user } = useSelector((state) => state.user);
+
+  return <div className='profile'>ProfilePage</div>;
 };
 
 export default ProfilePage;

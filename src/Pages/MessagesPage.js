@@ -8,6 +8,7 @@ import MessageForm from '../Components/Messages/MessageForm';
 import Inbox from '../Components/Messages/Inbox';
 
 import './MessagesPage.css';
+import SearchUser from '../Components/Messages/SearchUser';
 
 const MessagesPage = () => {
   const [connection, setConnection] = useState(null);
@@ -98,7 +99,7 @@ const MessagesPage = () => {
           <div
             className={`message-thread-container ${!receiverUsername ? 'conditional-hide' : ''} `}>
             {searchParams.get('action') === 'new' ? (
-              <div>SearchUser</div>
+              <SearchUser />
             ) : (
               <>
                 <div className='chat-thread-label'>

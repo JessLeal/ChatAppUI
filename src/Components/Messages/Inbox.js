@@ -32,7 +32,7 @@ const Inbox = ({ inboxMessage, receiverUsername }) => {
             to={`/messages/${messageUsername}?messageKnownAs=${messageKnownAs}`}
             // onClick={() => handleClick(messageUsername, messageKnownAs)}
           >
-            <div className='message-avatar'></div>
+            <div className='avatar'></div>
             <div className='message-inner'>
               <div className='message-header'>
                 <p className='message-sender'>

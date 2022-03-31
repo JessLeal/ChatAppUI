@@ -1,16 +1,16 @@
-import axios from "axios";
+import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: "https://localhost:5001/api",
+  baseURL: process.env.REACT_APP_API_URL,
   headers: {
-    "Content-Type": "application/json",
-  },
+    'Content-Type': 'application/json'
+  }
 });
 
 axiosInstance.interceptors.request.use(async (config) => {
-  const token = localStorage.getItem("Token");
+  const token = localStorage.getItem('Token');
   const tokenJson = token ? await JSON.parse(token) : null;
-  config.headers.Authorization = tokenJson ? `Bearer ${tokenJson.token}` : "";
+  config.headers.Authorization = tokenJson ? `Bearer ${tokenJson.token}` : '';
   return config;
 });
 

@@ -65,7 +65,7 @@
   justify-content: space-between;
 }
 
-.message-avatar {
+.avatar {
   background-color: white;
   border: 0.1rem solid var(--accent);
   border-radius: 100%;
@@ -200,4 +200,44 @@
   color: white;
   width: 3rem;
   padding: 0 0.5rem;
+}
+
+/* Search Users */
+.search-user-container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.users-search-input-container {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.users-search-input {
+  box-sizing: border-box;
+  border: 0.1rem;
+  border-radius: 0.3rem;
+  box-shadow: 0px 0px 0px 0.05rem rgba(0, 0, 0, 0.5);
+  flex: 1;
+  padding: 0.5rem;
+}
+
+.users-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.user-item {
+  display: flex;
+  align-items: center;
+}
+
+.user-item:hover {
+  cursor: pointer;
 }
