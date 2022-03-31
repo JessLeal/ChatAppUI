@@ -6,7 +6,7 @@ const ProtectedRoute = ({ component: Component, ...restOfProps }) => {
   const { user } = useSelector((state) => state.user);
   const { isLoading } = useSelector((state) => state.isLoading);
 
-  return <>{user != null ? <>{Component}</> : <Navigate to='/login' />}</>;
+  return <>{Object.keys(user).length !== 0 ? <>{Component}</> : <Navigate to='/login' />}</>;
 };
 
 export default ProtectedRoute;
