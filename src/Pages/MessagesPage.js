@@ -39,7 +39,6 @@ const MessagesPage = () => {
   }, [receiverUsername, user.token]);
 
   useEffect(() => {
-    console.log(connection);
     const startConnection = async () => {
       if (connection) {
         try {
@@ -51,6 +50,7 @@ const MessagesPage = () => {
           });
 
           connection.on('ReceivedUserMessages', (messages) => {
+            console.log(messages);
             const updateInboxMessage = [...messages];
             setInboxMessage(updateInboxMessage);
           });

@@ -50,7 +50,6 @@ const LoginPage = () => {
 
   return (
     <div className='login-container'>
-      {console.log(Object.keys(user).length)}
       {Object.keys(user).length === 0 ? (
         <>
           <div className='login-image-container conditional-hide'>
