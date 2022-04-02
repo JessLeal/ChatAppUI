@@ -22,7 +22,12 @@ const MessagesPage = () => {
 
   const { user } = useSelector((state) => state.user);
   const { receiverUsername } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [action, setAction] = useState();
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    setAction(searchParams.get('action'));
+  }, [searchParams]);
 
   useEffect(() => {
     if (user.token) {
@@ -95,10 +100,9 @@ const MessagesPage = () => {
     <>
       {connection && (
         <div className='message-container'>
-          <Inbox inboxMessage={inboxMessage} receiverUsername={receiverUsername} />
-          <div
-            className={`message-thread-container ${!receiverUsername ? 'conditional-hide' : ''} `}>
-            {searchParams.get('action') === 'new' ? (
+          <Inbox inboxMessage={inboxMessage} receiverUsername={receiverUsername} action={action} />
+          <div className={`message-thread-container`}>
+            {action === 'new' ? (
               <SearchUser />
             ) : (
               <>

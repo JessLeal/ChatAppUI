@@ -4,7 +4,7 @@ import { useNavigate, NavLink } from 'react-router-dom';
 import moment from 'moment';
 import RateReviewOutlinedIcon from '@mui/icons-material/RateReviewOutlined';
 
-const Inbox = ({ inboxMessage, receiverUsername }) => {
+const Inbox = ({ inboxMessage, receiverUsername, action }) => {
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
@@ -13,7 +13,10 @@ const Inbox = ({ inboxMessage, receiverUsername }) => {
   };
 
   return (
-    <div className={`inbox-container ${receiverUsername ? 'conditional-hide' : ''} `}>
+    <div
+      className={`inbox-container ${
+        receiverUsername || action === 'new' ? 'conditional-hide' : ''
+      } `}>
       <div className='inbox-label-container'>
         <div className='inbox-label'>Inbox</div>
         <button className='message-new-button' title='New Message' onClick={handleClick}>
@@ -29,9 +32,7 @@ const Inbox = ({ inboxMessage, receiverUsername }) => {
           <NavLink
             className='inbox-message-container'
             key={messageUsername}
-            to={`/messages/${messageUsername}?messageKnownAs=${messageKnownAs}`}
-            // onClick={() => handleClick(messageUsername, messageKnownAs)}
-          >
+            to={`/messages/${messageUsername}?messageKnownAs=${messageKnownAs}`}>
             <div className='avatar'></div>
             <div className='message-inner'>
               <div className='message-header'>
