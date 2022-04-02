@@ -27,7 +27,7 @@ const MessagesPage = () => {
   useEffect(() => {
     if (user.token) {
       const newConnection = new HubConnectionBuilder()
-        .withUrl(`https://localhost:5001/hubs/message?user=${receiverUsername}`, {
+        .withUrl(`${process.env.REACT_APP_HUB_URL}/message?user=${receiverUsername}`, {
           accessTokenFactory: () => user.token,
           skipNegotiation: true,
           transport: HttpTransportType.WebSockets
@@ -93,7 +93,7 @@ const MessagesPage = () => {
 
   return (
     <>
-      {connection ? (
+      {connection && (
         <div className='message-container'>
           <Inbox inboxMessage={inboxMessage} receiverUsername={receiverUsername} />
           <div
@@ -111,8 +111,6 @@ const MessagesPage = () => {
             )}
           </div>
         </div>
-      ) : (
-        <h1>An error occured please try again later</h1>
       )}
     </>
   );

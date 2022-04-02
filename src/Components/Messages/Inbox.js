@@ -24,7 +24,7 @@ const Inbox = ({ inboxMessage, receiverUsername }) => {
         const messageUsername =
           user?.username === m.senderUsername ? m.recipientUsername : m.senderUsername;
         const messageKnownAs =
-          user?.knownAs === m.senderKnownAs ? m.recipientKnownAs : m.senderKnownAs;
+          user?.username === m.senderUsername ? m.recipientKnownAs : m.senderKnownAs;
         return (
           <NavLink
             className='inbox-message-container'
