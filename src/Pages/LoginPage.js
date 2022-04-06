@@ -19,6 +19,7 @@ const LoginPage = () => {
       dispatch(
         login({
           username: userResult.username,
+          knownAs: userResult.knownAs,
           token: userResult.token
         })
       );

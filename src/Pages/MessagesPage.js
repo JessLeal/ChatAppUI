@@ -101,10 +101,12 @@ const MessagesPage = () => {
       {connection && (
         <div className='message-container'>
           <Inbox inboxMessage={inboxMessage} receiverUsername={receiverUsername} action={action} />
-          <div className={`message-thread-container`}>
-            {action === 'new' ? (
-              <SearchUser />
-            ) : (
+          <div
+            className={`message-thread-container ${
+              !receiverUsername && action !== 'new' ? 'conditional-hide' : ''
+            }`}>
+            {action === 'new' && <SearchUser />}
+            {receiverUsername && (
               <>
                 <div className='chat-thread-label'>
                   {searchParams.get('messageKnownAs') || receiverUsername}

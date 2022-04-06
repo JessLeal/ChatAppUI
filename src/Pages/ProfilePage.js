@@ -5,7 +5,7 @@ import './ProfilePage.css';
 const ProfilePage = () => {
   const { user } = useSelector((state) => state.user);
 
-  return <div className='profile'>ProfilePage</div>;
+  return <div className='profile-container'>ProfilePage</div>;
 };
 
 export default ProfilePage;

@@ -8,6 +8,21 @@
   /* --accent: rgb(107, 35, 206);
   --accent-blur: rgb(107, 35, 206, 0.2); */
   --inner-border: rgb(0, 0, 0, 0.1);
+
+  --background-color-1: var(--light_grey);
+  --background-color-2: var(--light_grey_2);
+  --background-color-inverse: var(--outer_space);
+  --text-main: var(--outer_space);
+  --text-inverse: var(--light_grey);
+}
+
+[data-theme='dark'] {
+  --background-color-1: var(--outer_space);
+  --background-color-2: black;
+  --background-color-inverse: var(--light_grey);
+  --text-main: var(--light_grey);
+  --text-inverse: var(--outer_space);
+  --inner-border: rgb(252, 252, 252, 0.1);
 }
 
 * {
@@ -18,11 +33,11 @@
 }
 
 .App {
-  background-color: var(--light_grey);
+  background-color: var(--background-color-1);
   height: 100vh;
   width: 100%;
   overflow: auto;
-  color: var(--outer_space);
+  color: var(--text-main);
 }
 
 .App .layout-container {
@@ -58,11 +73,25 @@
   }
 
   .App .sidebar {
+    position: fixed;
+    height: 4rem;
     width: 100%;
+    transition: all 0.3s ease;
+    bottom: 100%;
+    z-index: 1;
+  }
+
+  .sidebar.active {
+    height: 100%;
+    bottom: 0;
   }
 
   .sidebar .menu-button {
     display: block;
+  }
+
+  .sidebar .inactive {
+    display: none;
   }
 
   .login-container::after {
@@ -74,10 +103,16 @@
   }
 
   .message-container {
+    margin-top: 4rem;
     flex: 1;
     display: grid;
     grid-template-columns: 1fr;
     height: 50%;
+  }
+
+  .profile-container,
+  .settings-container {
+    margin-top: 4rem;
   }
 
   .conditional-hide {

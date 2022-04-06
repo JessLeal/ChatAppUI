@@ -21,6 +21,10 @@ const Sidebar = () => {
 
   const { user } = useSelector((state) => state.user);
 
+  const onLinkClick = () => {
+    setMenuActive(false);
+  };
+
   const onLogout = async () => {
     await localStorage.clear();
     dispatch(logout());
@@ -28,7 +32,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className='sidebar'>
+    <div className={`sidebar ${menuActive ? 'active' : ''}`}>
       <div className='logo-content'>
         <div className='logo' onClick={() => navigate('/')}>
           <WifiTetheringOutlinedIcon />
@@ -42,27 +46,27 @@ const Sidebar = () => {
           )}
         </div>
       </div>
-      <ul className={`nav-list ${!menuActive && 'conditional-hide'}`}>
-        <li>
+      <ul className={`nav-list ${!menuActive ? 'inactive' : ''}`}>
+        <li onClick={onLinkClick}>
           <NavLink to='/messages'>
             <ForumOutlinedIcon className='svg-icon' />
             <span className='link-name'>Messages</span>
           </NavLink>
         </li>
-        <li>
+        <li onClick={onLinkClick}>
           <NavLink to='/profile'>
             <AccountCircleOutlinedIcon className='svg-icon' />
             <span className='link-name'>Profile</span>
           </NavLink>
         </li>
-        <li>
+        <li onClick={onLinkClick}>
           <NavLink to='/settings'>
             <SettingsOutlinedIcon className='svg-icon' />
             <span className='link-name'>Settings</span>
           </NavLink>
         </li>
       </ul>
-      <div className={`profile-content ${!menuActive && 'conditional-hide'}`}>
+      <div className={`profile-content ${!menuActive ? 'inactive' : ''}`}>
         <div className='profile'>
           <div className='profile-details'>
             {/* <img src='profile.jpg'/> */}

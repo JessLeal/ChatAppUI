@@ -21,6 +21,7 @@ const SignUpPage = () => {
       dispatch(
         signUp({
           username: userResult.username,
+          knownAs: userResult.knownAs,
           token: userResult.token
         })
       );

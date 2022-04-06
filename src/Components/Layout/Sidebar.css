@@ -2,9 +2,11 @@
   top: 0;
   left: 0;
   width: 11rem;
-  background: var(--outer_space);
+  height: 100%;
+  background: var(--background-color-1);
   display: flex;
   flex-direction: column;
+  border-right: 1px solid var(--inner-border);
 }
 
 .sidebar .logo-content {
@@ -18,7 +20,7 @@
 }
 
 .sidebar .logo-content .logo {
-  color: var(--light_grey);
+  color: var(--text-main);
   display: flex;
   height: 4rem;
   width: 100%;
@@ -60,7 +62,7 @@
   align-items: center;
   padding: 0.4rem;
 
-  color: var(--light_grey);
+  color: var(--text-main);
   font-size: 1rem;
   font-weight: 300;
   text-decoration: none;
@@ -68,12 +70,17 @@
 
 .sidebar li a.active {
   background-color: var(--accent);
+  color: var(--text-inverse);
 }
 
 .sidebar .svg-icon {
   font-size: 1.5rem;
   margin-right: 0.5rem;
-  color: var(--light_grey);
+  color: var(--text-main);
+}
+
+.sidebar .active .svg-icon {
+  color: var(--text-inverse);
 }
 
 .sidebar .profile-content .profile {
@@ -82,7 +89,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.4rem 0.9rem;
-  color: var(--light_grey);
+  color: var(--text-main);
   font-size: 1rem;
   font-weight: 300;
 }
