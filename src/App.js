@@ -39,6 +39,7 @@ function App() {
   }, [dispatch]);
 
   return (
+    // <div className='App' data-theme='dark'>
     <div className='App'>
       <Router>
         <Routes>

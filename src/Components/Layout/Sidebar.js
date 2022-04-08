@@ -46,33 +46,35 @@ const Sidebar = () => {
           )}
         </div>
       </div>
-      <ul className={`nav-list ${!menuActive ? 'inactive' : ''}`}>
-        <li onClick={onLinkClick}>
-          <NavLink to='/messages'>
-            <ForumOutlinedIcon className='svg-icon' />
-            <span className='link-name'>Messages</span>
-          </NavLink>
-        </li>
-        <li onClick={onLinkClick}>
-          <NavLink to='/profile'>
-            <AccountCircleOutlinedIcon className='svg-icon' />
-            <span className='link-name'>Profile</span>
-          </NavLink>
-        </li>
-        <li onClick={onLinkClick}>
-          <NavLink to='/settings'>
-            <SettingsOutlinedIcon className='svg-icon' />
-            <span className='link-name'>Settings</span>
-          </NavLink>
-        </li>
-      </ul>
-      <div className={`profile-content ${!menuActive ? 'inactive' : ''}`}>
-        <div className='profile'>
-          <div className='profile-details'>
-            {/* <img src='profile.jpg'/> */}
-            <div className='name'>{user?.knownAs}</div>
+      <div className='nav-content'>
+        <ul className={`nav-list ${!menuActive ? 'inactive' : ''}`}>
+          <li onClick={onLinkClick}>
+            <NavLink to='/messages'>
+              <ForumOutlinedIcon className='svg-icon' />
+              <span className='link-name'>Messages</span>
+            </NavLink>
+          </li>
+          <li onClick={onLinkClick}>
+            <NavLink to='/profile'>
+              <AccountCircleOutlinedIcon className='svg-icon' />
+              <span className='link-name'>Profile</span>
+            </NavLink>
+          </li>
+          <li onClick={onLinkClick}>
+            <NavLink to='/settings'>
+              <SettingsOutlinedIcon className='svg-icon' />
+              <span className='link-name'>Settings</span>
+            </NavLink>
+          </li>
+        </ul>
+        <div className={`profile-content ${!menuActive ? 'inactive' : ''}`}>
+          <div className='profile'>
+            <div className='profile-details'>
+              {/* <img src='profile.jpg'/> */}
+              <div className='name'>{user?.knownAs}</div>
+            </div>
+            <LogoutOutlinedIcon id='logout' className='svg-icon' onClick={onLogout} />
           </div>
-          <LogoutOutlinedIcon id='logout' className='svg-icon' onClick={onLogout} />
         </div>
       </div>
     </div>

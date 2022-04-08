@@ -2,6 +2,7 @@
   /* colors */
   --light_grey: #f9f9fc;
   --light_grey_2: #f8f8f9;
+  --dark-grey: rgb(213, 245, 227);
   --outer_space: #2e3532;
   --accent: rgb(35, 206, 107);
   --accent-blur: rgb(35, 206, 107, 0.2);
@@ -11,17 +12,22 @@
 
   --background-color-1: var(--light_grey);
   --background-color-2: var(--light_grey_2);
+  --background-color-3: var(--dark-grey);
   --background-color-inverse: var(--outer_space);
+  --background-color-dark: var(--outer_space);
   --text-main: var(--outer_space);
   --text-inverse: var(--light_grey);
+  --text-light: #fff;
 }
 
 [data-theme='dark'] {
   --background-color-1: var(--outer_space);
   --background-color-2: black;
   --background-color-inverse: var(--light_grey);
+  --background-color-dark: var(--outer_space);
   --text-main: var(--light_grey);
   --text-inverse: var(--outer_space);
+  --text-light: #fff;
   --inner-border: rgb(252, 252, 252, 0.1);
 }
 
