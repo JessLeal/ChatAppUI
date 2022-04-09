@@ -16,6 +16,7 @@
   --background-color-3: var(--dark-grey);
   --background-color-inverse: var(--outer_space);
   --background-color-dark: var(--outer_space);
+  --accent-blur: rgb(35, 206, 107, 0.3);
   --text-main: var(--outer_space);
   --text-inverse: var(--light_grey);
   --text-light: #fff;
@@ -24,7 +25,7 @@
 [data-theme='dark'] {
   --background-color-1: var(--outer_space);
   --background-color-2: var(--dark-grey-2);
-  --background-color-3: black;
+  --background-color-3: var(--dark-grey-2);
   --background-color-inverse: var(--light_grey);
   --background-color-dark: var(--dark-grey-2);
   --text-main: var(--light_grey);

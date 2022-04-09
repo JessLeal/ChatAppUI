@@ -7,7 +7,6 @@ const SearchUser = () => {
   const navigate = useNavigate();
 
   const handleSearch = async (e) => {
-    console.log(e.target.value);
     if (!e.target.value) return setUsers([]);
 
     try {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkUser } from './Features/userSlice';
@@ -40,9 +40,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    // <div className='App' data-theme='dark'>
     <div className='App' data-theme={theme.value}>
-      {console.log(theme)}
       <Router>
         <Routes>
           <Route exact path='/' element={<LandingPage />} />
