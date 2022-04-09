@@ -1,8 +1,18 @@
-import React from 'react';
-import Dropdown from '../Components/Shared/Dropdown/Dropdown';
+import React, { useState } from 'react';
+import Select from 'react-select';
+import { useDispatch } from 'react-redux';
+import { setTheme } from '../Features/themeSlice';
+import { themeOptions } from '../Constants/options';
+
 import './SettingsPage.css';
 
 const SettingsPage = () => {
+  const dispatch = useDispatch();
+
+  const handleChangeTheme = (value) => {
+    dispatch(setTheme({ value }));
+  };
+
   return (
     <div className='settings-container'>
       <div className='settings-label'>Settings</div>
@@ -10,7 +20,12 @@ const SettingsPage = () => {
         <div className='settings-category'>General</div>
         <div className='setting-indiv'>
           <p className='setting-name'>Theme: </p>
-          <Dropdown header={'Default'} options={['Hello']} />
+          <Select
+            className='dropdown'
+            options={themeOptions}
+            name='theme'
+            onChange={(value) => handleChangeTheme(value.value)}
+          />
         </div>
       </div>
     </div>

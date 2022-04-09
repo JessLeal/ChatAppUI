@@ -3,6 +3,7 @@
   --light_grey: #f9f9fc;
   --light_grey_2: #f8f8f9;
   --dark-grey: rgb(213, 245, 227);
+  --dark-grey-2: #262b29;
   --outer_space: #2e3532;
   --accent: rgb(35, 206, 107);
   --accent-blur: rgb(35, 206, 107, 0.2);
@@ -22,9 +23,10 @@
 
 [data-theme='dark'] {
   --background-color-1: var(--outer_space);
-  --background-color-2: black;
+  --background-color-2: var(--dark-grey-2);
+  --background-color-3: black;
   --background-color-inverse: var(--light_grey);
-  --background-color-dark: var(--outer_space);
+  --background-color-dark: var(--dark-grey-2);
   --text-main: var(--light_grey);
   --text-inverse: var(--outer_space);
   --text-light: #fff;
@@ -50,6 +52,32 @@
   height: 100%;
   display: grid;
   grid-template-columns: max-content 12fr;
+}
+
+/*dropdown*/
+.dropdown > div {
+  border: 1px solid var(--background-color-dark);
+  border-radius: 0.3rem;
+  box-shadow: none;
+  background-color: var(--background-color-2);
+}
+
+.dropdown div[class*='singleValue'] {
+  color: var(--text-main);
+}
+
+.dropdown div[class*='menu']:hover {
+  color: var(--accent);
+  background-color: inherit;
+}
+
+.dropdown div[class*='option'] {
+  color: var(--text-main);
+  background-color: transparent;
+}
+
+.dropdown div[class*='option']:hover {
+  color: var(--accent);
 }
 
 /* Scrollbar */
