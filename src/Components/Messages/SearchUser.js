@@ -10,8 +10,16 @@ const SearchUser = () => {
     console.log(e.target.value);
     if (!e.target.value) return setUsers([]);
 
-    const res = await axiosBase.get(`/users?searchQuery=${e.target.value}`);
-    return setUsers(res.data);
+    try {
+      const res = await axiosBase.get(`/users?searchQuery=${e.target.value}`);
+
+      if (res) {
+        return setUsers(res?.data);
+      }
+      return setUsers([]);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleClick = ({ userName, knownAs }) => {
@@ -30,14 +38,15 @@ const SearchUser = () => {
         />
       </div>
       <div className='users-list-container'>
-        {users.map((u) => {
-          return (
-            <div key={u.userName} className='user-item' onClick={() => handleClick(u)}>
-              <div className='avatar'></div>
-              <div className='users-username'>{u.knownAs}</div>
-            </div>
-          );
-        })}
+        {users.length !== 0 &&
+          users.map((u) => {
+            return (
+              <div key={u.userName} className='user-item' onClick={() => handleClick(u)}>
+                <div className='avatar'></div>
+                <div className='users-username'>{u.knownAs}</div>
+              </div>
+            );
+          })}
       </div>
     </div>
   );

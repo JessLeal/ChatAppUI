@@ -19,6 +19,7 @@ const LoginPage = () => {
       dispatch(
         login({
           username: userResult.username,
+          knownAs: userResult.knownAs,
           token: userResult.token
         })
       );
@@ -50,7 +51,6 @@ const LoginPage = () => {
 
   return (
     <div className='login-container'>
-      {console.log(Object.keys(user).length)}
       {Object.keys(user).length === 0 ? (
         <>
           <div className='login-image-container conditional-hide'>

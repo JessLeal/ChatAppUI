@@ -22,7 +22,12 @@ const MessagesPage = () => {
 
   const { user } = useSelector((state) => state.user);
   const { receiverUsername } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [action, setAction] = useState();
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    setAction(searchParams.get('action'));
+  }, [searchParams]);
 
   useEffect(() => {
     if (user.token) {
@@ -39,7 +44,6 @@ const MessagesPage = () => {
   }, [receiverUsername, user.token]);
 
   useEffect(() => {
-    console.log(connection);
     const startConnection = async () => {
       if (connection) {
         try {
@@ -51,6 +55,7 @@ const MessagesPage = () => {
           });
 
           connection.on('ReceivedUserMessages', (messages) => {
+            console.log(messages);
             const updateInboxMessage = [...messages];
             setInboxMessage(updateInboxMessage);
           });
@@ -95,12 +100,13 @@ const MessagesPage = () => {
     <>
       {connection && (
         <div className='message-container'>
-          <Inbox inboxMessage={inboxMessage} receiverUsername={receiverUsername} />
+          <Inbox inboxMessage={inboxMessage} receiverUsername={receiverUsername} action={action} />
           <div
-            className={`message-thread-container ${!receiverUsername ? 'conditional-hide' : ''} `}>
-            {searchParams.get('action') === 'new' ? (
-              <SearchUser />
-            ) : (
+            className={`message-thread-container ${
+              !receiverUsername && action !== 'new' ? 'conditional-hide' : ''
+            }`}>
+            {action === 'new' && <SearchUser />}
+            {receiverUsername && (
               <>
                 <div className='chat-thread-label'>
                   {searchParams.get('messageKnownAs') || receiverUsername}

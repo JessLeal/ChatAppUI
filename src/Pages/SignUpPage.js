@@ -15,12 +15,13 @@ const SignUpPage = () => {
   const onSignUp = async (values) => {
     const res = await axiosBase.post('/accounts/register', values);
 
-    if (res.status === 200) {
+    if (res?.status === 200) {
       const userResult = res.data;
       const userString = await JSON.stringify(userResult);
       dispatch(
         signUp({
           username: userResult.username,
+          knownAs: userResult.knownAs,
           token: userResult.token
         })
       );
@@ -28,10 +29,11 @@ const SignUpPage = () => {
       return await localStorage.setItem('Token', userString);
     }
     const errorMessageFx = () => {
-      if (res.data.errors) {
+      console.log(res);
+      if (res?.data.errors) {
         const modalStateErrors = [];
         for (const key in res.data.errors) {
-          if (res.data.errors[key]) {
+          if (res?.data.errors[key]) {
             modalStateErrors.push(res.data.errors[key]);
           }
         }
@@ -41,7 +43,7 @@ const SignUpPage = () => {
           });
         });
       }
-      return enqueueSnackbar(res.data, {
+      return enqueueSnackbar(res?.data, {
         variant: 'error'
       });
     };

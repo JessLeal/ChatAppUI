@@ -18,6 +18,7 @@ import './App.css';
 function App() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
+  const { theme } = useSelector((state) => state.theme);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -39,7 +40,9 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className='App'>
+    // <div className='App' data-theme='dark'>
+    <div className='App' data-theme={theme.value}>
+      {console.log(theme)}
       <Router>
         <Routes>
           <Route exact path='/' element={<LandingPage />} />

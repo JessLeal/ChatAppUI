@@ -9,6 +9,7 @@
 .inbox-container {
   display: flex;
   flex-direction: column;
+  overflow: auto;
   border-right: 1px solid var(--inner-border);
 }
 
@@ -16,6 +17,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid var(--inner-border);
 }
 
 .inbox-container .message-new-button {
@@ -25,7 +27,7 @@
   background-color: var(--accent);
   border: 0.05rem solid var(--accent);
   border-radius: 0.3rem;
-  color: white;
+  color: var(--text-inverse);
   width: 3rem;
   height: 3rem;
   padding: 0 0.5rem;
@@ -41,9 +43,13 @@
   padding: 0 0.9rem;
 }
 
+.inbox-container .inbox-messages-container {
+  overflow: auto;
+}
+
 .inbox-container a {
   text-decoration: none;
-  color: var(--outer_space);
+  color: var(--text-main);
 }
 
 .inbox-container a.active {
@@ -51,6 +57,8 @@
 }
 
 .inbox-container .inbox-message-container {
+  display: flex;
+  align-items: center;
   height: 3.5rem;
   padding: 0.5rem 0.9rem;
 }
@@ -93,7 +101,7 @@
 .message-time {
   display: inline-block;
   font-size: 0.8rem;
-  color: var(--outer_space);
+  color: var(--text-main);
   opacity: 0.6;
 }
 
@@ -111,7 +119,7 @@
   display: flex;
   flex-direction: column;
   padding: 0.5rem 0;
-  background-color: white;
+  background-color: var(--background-color-1);
   overflow: hidden;
 }
 
@@ -150,15 +158,15 @@
 
 .chat-receiver {
   border-radius: 0.5rem;
-  background-color: var(--light_grey_2);
-  padding: 0.3rem 0.5rem;
+  background-color: var(--background-color-3);
+  padding: 0.7rem;
   max-width: 70%;
 }
 
 .chat-sender {
   border-radius: 0.5rem;
   background-color: var(--accent);
-  padding: 0.3rem 0.5rem;
+  padding: 0.7rem;
   max-width: 70%;
 }
 
