@@ -13,6 +13,7 @@ const LoginPage = () => {
 
   const onLogin = async (values) => {
     const res = await axiosBase.post('/accounts/login', values);
+    console.log(res);
     if (res.status === 200) {
       const userResult = res.data;
       const userString = await JSON.stringify(userResult);
@@ -20,7 +21,8 @@ const LoginPage = () => {
         login({
           username: userResult.username,
           knownAs: userResult.knownAs,
-          token: userResult.token
+          token: userResult.token,
+          photoUrl: userResult?.photoUrl
         })
       );
 
@@ -32,16 +34,16 @@ const LoginPage = () => {
         const modalStateErrors = [];
         for (const key in res.data.errors) {
           if (res.data.errors[key]) {
-            modalStateErrors.push(res.data.errors[key]);
+            modalStateErrors.push(`${res.data.errors[key]}`);
           }
         }
         return modalStateErrors.map((msg) => {
-          return enqueueSnackbar(msg, {
+          return enqueueSnackbar(`${msg}`, {
             variant: 'error'
           });
         });
       }
-      return enqueueSnackbar(res.data, {
+      return enqueueSnackbar(`${res.data.message}`, {
         variant: 'error'
       });
     };

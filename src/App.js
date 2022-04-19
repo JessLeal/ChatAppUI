@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkUser } from './Features/userSlice';
@@ -18,11 +18,12 @@ import './App.css';
 function App() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
+  const { isLoading } = useSelector((state) => state.isLoading);
   const { theme } = useSelector((state) => state.theme);
 
   useEffect(() => {
     const fetchUser = async () => {
-      dispatch(startLoading());
+      dispatch(startLoading({ type: 'main' }));
       const userStorage = await localStorage.getItem('Token');
       const initial = userStorage ? await JSON.parse(userStorage) : null;
       if (initial != null) {
@@ -31,35 +32,37 @@ function App() {
             ...initial
           })
         );
-        return dispatch(stopLoading());
+        return dispatch(stopLoading({ type: 'main' }));
       }
       dispatch(checkUser({}));
-      return dispatch(stopLoading());
+      return dispatch(stopLoading({ type: 'main' }));
     };
     fetchUser();
   }, [dispatch]);
 
   return (
-    // <div className='App' data-theme='dark'>
     <div className='App' data-theme={theme.value}>
-      {console.log(theme)}
-      <Router>
-        <Routes>
-          <Route exact path='/' element={<LandingPage />} />
-          <Route exact path='/home' element={<LandingPage />} />
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='/signup' element={<SignUpPage />} />
-          {user && (
-            <Route element={<ProtectedRoute component={<AuthorizedPageContainer />} />}>
-              <Route path='/messages' element={<MessagesPage />} />
-              <Route path='/messages/:receiverUsername' element={<MessagesPage />} />
-              <Route path='/profile' element={<ProfilePage />} />
-              <Route path='/settings' element={<SettingsPage />} />
-            </Route>
-          )}
-          <Route path='*' element={<PageNotFound />} />
-        </Routes>
-      </Router>
+      {!isLoading.main ? (
+        <Router>
+          <Routes>
+            <Route exact path='/' element={<LandingPage />} />
+            <Route path='/home' element={<LandingPage />} />
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/signup' element={<SignUpPage />} />
+            {user && (
+              <Route element={<ProtectedRoute component={<AuthorizedPageContainer />} />}>
+                <Route path='/messages' element={<MessagesPage />} />
+                <Route path='/messages/:receiverUsername' element={<MessagesPage />} />
+                <Route path='/profile' element={<ProfilePage />} />
+                <Route path='/settings' element={<SettingsPage />} />
+              </Route>
+            )}
+            <Route path='*' element={<PageNotFound />} />
+          </Routes>
+        </Router>
+      ) : (
+        <div>Loading</div>
+      )}
     </div>
   );
 }

@@ -29,7 +29,6 @@ const SignUpPage = () => {
       return await localStorage.setItem('Token', userString);
     }
     const errorMessageFx = () => {
-      console.log(res);
       if (res?.data.errors) {
         const modalStateErrors = [];
         for (const key in res.data.errors) {

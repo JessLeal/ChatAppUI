@@ -7,6 +7,7 @@
 
 /* Inbox */
 .inbox-container {
+  min-width: 270px;
   display: flex;
   flex-direction: column;
   overflow: auto;
@@ -27,7 +28,7 @@
   background-color: var(--accent);
   border: 0.05rem solid var(--accent);
   border-radius: 0.3rem;
-  color: var(--text-inverse);
+  color: var(--text-light);
   width: 3rem;
   height: 3rem;
   padding: 0 0.5rem;
@@ -75,7 +76,7 @@
 
 .avatar {
   background-color: white;
-  border: 0.1rem solid var(--accent);
+  /* border: 0.1rem solid var(--accent); */
   border-radius: 100%;
   display: inline-block;
   height: 2rem;

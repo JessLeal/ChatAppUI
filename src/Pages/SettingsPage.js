@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Select from 'react-select';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setTheme } from '../Features/themeSlice';
 import { themeOptions } from '../Constants/options';
 
@@ -8,9 +8,10 @@ import './SettingsPage.css';
 
 const SettingsPage = () => {
   const dispatch = useDispatch();
+  const { theme } = useSelector((state) => state.theme);
 
   const handleChangeTheme = (value) => {
-    dispatch(setTheme({ value }));
+    dispatch(setTheme(value));
   };
 
   return (
@@ -24,7 +25,8 @@ const SettingsPage = () => {
             className='dropdown'
             options={themeOptions}
             name='theme'
-            onChange={(value) => handleChangeTheme(value.value)}
+            defaultValue={theme}
+            onChange={(value) => handleChangeTheme(value)}
           />
         </div>
       </div>

@@ -55,7 +55,6 @@ const MessagesPage = () => {
           });
 
           connection.on('ReceivedUserMessages', (messages) => {
-            console.log(messages);
             const updateInboxMessage = [...messages];
             setInboxMessage(updateInboxMessage);
           });
@@ -78,6 +77,10 @@ const MessagesPage = () => {
       }
     };
     startConnection();
+
+    return function cleanup() {
+      connection?.stop();
+    };
   }, [connection]);
 
   const sendMessage = async (content) => {

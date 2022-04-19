@@ -1,3 +1,162 @@
-.profile-container {
+.profile-container .profile-label {
   display: flex;
+  align-items: center;
+  font-size: 2rem;
+  height: 4rem;
+  padding: 0 0.9rem;
+}
+
+.profile-container .profile {
+  margin: 0.5rem 0.9rem;
+  padding: 0;
+  display: flex;
+  gap: 4rem;
+}
+
+.profile-container .profile-photo-container {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+.profile-container .profile-photo {
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.profile-container .photo-edit {
+  background-color: var(--overlay);
+  border-radius: 50%;
+  color: var(--text-dark);
+  height: 10rem;
+  width: 10rem;
+
+  grid-column: 1;
+  grid-row: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+}
+
+.profile-container .photo-edit:hover {
+  opacity: 1;
+}
+
+.photo-edit svg {
+  font-size: 2.5rem;
+}
+
+.profile-form {
+  text-align: center;
+  width: 20rem;
+}
+
+.profile-form input {
+  border: 0.1rem;
+  border-radius: 0.3rem;
+  box-shadow: 0px 0px 0px 0.05rem rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  display: block;
+  height: 2.5rem;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  width: 100%;
+}
+
+.profile-container .submit-botton {
+  background-color: var(--accent);
+  border: 0.1rem solid var(--accent);
+  border-radius: 0.3rem;
+  color: white;
+  height: 2rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+.profile-container .photo-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
+  width: 30rem;
+  padding: 2rem;
+}
+
+.preview-image {
+  max-height: 30rem;
+  width: 20rem;
+}
+
+.profile-container .photo-upload {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.profile-container .file-upload {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-container .photo-upload-label {
+  background-color: var(--accent);
+  border: 0.1rem solid var(--accent);
+  border-radius: 0.3rem;
+  color: white;
+  height: 2rem;
+  width: 20rem;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-container .photo-upload-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 20rem;
+}
+
+.photo-button {
+  height: 2rem;
+  flex: 1;
+  border-width: 2px;
+  font-weight: 700;
+  border-radius: 0.3rem;
+  border-style: solid;
+  cursor: pointer;
+}
+
+.save-photo-button {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.save-photo-button:hover {
+  background-color: var(--accent);
+  color: white;
+}
+
+.cancel-photo-button {
+  border-color: var(--secondary);
+  color: var(--secondary);
+}
+
+.cancel-photo-button:hover {
+  background-color: var(--secondary);
+  color: white;
 }

@@ -25,16 +25,27 @@ const Inbox = ({ inboxMessage, receiverUsername, action }) => {
       </div>
       <div className='inbox-messages-container'>
         {inboxMessage.map((m) => {
-          const messageUsername =
-            user?.username === m.senderUsername ? m.recipientUsername : m.senderUsername;
-          const messageKnownAs =
-            user?.username === m.senderUsername ? m.recipientKnownAs : m.senderKnownAs;
+          let messageUsername, messageKnownAs, messagePhoto;
+          if (user?.username === m.senderUsername) {
+            messageUsername = m.recipientUsername;
+            messageKnownAs = m.recipientKnownAs;
+            messagePhoto = m.receiverPhotoUrl;
+          } else {
+            messageUsername = m.senderUsername;
+            messageKnownAs = m.senderKnownAs;
+            messagePhoto = m.senderPhotoUrl;
+          }
+
           return (
             <NavLink
               className='inbox-message-container'
-              key={messageUsername}
+              key={`${m.senderUsername}-${m.recipientUsername}`}
               to={`/messages/${messageUsername}?messageKnownAs=${messageKnownAs}`}>
-              <div className='avatar'></div>
+              <img
+                className='avatar'
+                src={messagePhoto || `${process.env.PUBLIC_URL}/images/user.png`}
+                alt={`${messageUsername}-avatar`}
+              />
               <div className='message-inner'>
                 <div className='message-header'>
                   <p className='message-sender'>
