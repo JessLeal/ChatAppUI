@@ -37,8 +37,8 @@ const SearchUser = () => {
         />
       </div>
       <div className='users-list-container'>
-        {users.length !== 0 &&
-          users.map((u) => {
+        {users?.length !== 0 &&
+          users?.map((u) => {
             return (
               <div key={u.userName} className='user-item' onClick={() => handleClick(u)}>
                 <div className='avatar'></div>
