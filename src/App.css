@@ -16,7 +16,7 @@
 
   --background-color-1: var(--light_grey);
   --background-color-2: var(--light_grey_2);
-  --background-color-3: var(--dark-grey);
+  --background-color-3: rgb(236 236 237);
   --background-color-inverse: var(--outer_space);
   --background-color-dark: var(--outer_space);
   --accent-blur: rgb(35, 206, 107, 0.3);
