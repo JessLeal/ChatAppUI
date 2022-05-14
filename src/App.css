@@ -40,7 +40,7 @@
   --inner-border: rgb(252, 252, 252, 0.1);
   --disabled-input: #525252s;
   --disabled-text: #d5d5d5;
-  --overlay: var(--grey-blur);
+  --overlay: rgba(59, 68, 64, 0.6);
 }
 
 * {
