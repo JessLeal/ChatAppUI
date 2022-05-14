@@ -10,7 +10,6 @@ import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import WifiTetheringOutlinedIcon from '@mui/icons-material/WifiTetheringOutlined';
 
 import './Sidebar.css';
 
