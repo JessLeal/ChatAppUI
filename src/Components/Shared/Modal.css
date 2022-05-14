@@ -1,6 +1,6 @@
 .modal-container {
   position: absolute;
-  z-index: 9999;
+  z-index: 2;
   top: 0;
   left: 0;
 
@@ -13,6 +13,13 @@
   justify-content: center;
 }
 
+.modal-container .modal-overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: inherit;
+}
+
 .modal-container .modal-content {
   min-width: 35rem;
   min-height: 15rem;
@@ -20,4 +27,6 @@
   align-items: center;
   justify-content: center;
   background-color: var(--background-color-2);
+  z-index: 3;
+  position: absolute;
 }

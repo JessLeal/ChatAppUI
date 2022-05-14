@@ -30,20 +30,28 @@ const ProfilePage = () => {
 
   const photoSubmitHandler = async () => {
     const payload = new FormData();
-    payload.append('file', fileSelected);
-    const res = await axiosBase.post('/users/add-photo', payload);
 
-    setOpenPhotoModal(false);
-    if (res.status === 201) {
-      dispatch(setUser({ photoUrl: res.data.url }));
-    } else {
-      return enqueueSnackbar(
-        `An error occured while uploading your photo, please try again later`,
-        {
-          variant: 'error'
-        }
-      );
+    if (fileSelected) {
+      payload.append('file', fileSelected);
+      const res = await axiosBase.post('/users/add-photo', payload);
+
+      setOpenPhotoModal(false);
+      setFileSelected(null);
+      if (res.status === 201) {
+        return dispatch(setUser({ photoUrl: res.data.url }));
+      } else {
+        return enqueueSnackbar(
+          `An error occured while uploading your photo, please try again later`,
+          {
+            variant: 'error'
+          }
+        );
+      }
     }
+
+    return enqueueSnackbar(`Please upload a photo`, {
+      variant: 'error'
+    });
   };
 
   const submitHandler = () => {};
@@ -63,7 +71,7 @@ const ProfilePage = () => {
           </div>
         </div>
 
-        <Modal isOpen={openPhotoModal}>
+        <Modal isOpen={openPhotoModal} onModalOverlayClick={() => setOpenPhotoModal(false)}>
           <div className='photo-modal'>
             {prevImgUrl && <img src={prevImgUrl} alt='preview' className='preview-image' />}
             <PhotoUpload photoUploadHandler={photoUploadHandler} />

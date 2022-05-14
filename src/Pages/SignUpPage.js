@@ -22,6 +22,7 @@ const SignUpPage = () => {
       dispatch(
         signUp({
           username: userResult.username,
+          email: userResult.email,
           knownAs: userResult.knownAs,
           token: userResult.token
         })
@@ -67,7 +68,7 @@ const SignUpPage = () => {
                 className='logo-svg'
                 alt='logo'
                 src={
-                  theme === 'dark'
+                  theme?.value === 'dark'
                     ? `${process.env.PUBLIC_URL}/Frame 3.svg`
                     : `${process.env.PUBLIC_URL}/Frame 1.svg`
                 }
@@ -80,20 +81,6 @@ const SignUpPage = () => {
                   <div className='signUp-label'>SIGN UP</div>
                   <div className='signUp-inputs'>
                     <Field
-                      name='email'
-                      render={({ input, meta }) => (
-                        <>
-                          <input
-                            type='email'
-                            {...input}
-                            placeholder='Email'
-                            className='signUp-input'
-                          />
-                          {meta.touched && meta.error && <span>{meta.error}</span>}
-                        </>
-                      )}
-                    />
-                    <Field
                       name='username'
                       render={({ input, meta }) => (
                         <>
@@ -101,6 +88,20 @@ const SignUpPage = () => {
                             type='text'
                             {...input}
                             placeholder='Username'
+                            className='signUp-input'
+                          />
+                          {meta.touched && meta.error && <span>{meta.error}</span>}
+                        </>
+                      )}
+                    />
+                    <Field
+                      name='email'
+                      render={({ input, meta }) => (
+                        <>
+                          <input
+                            type='email'
+                            {...input}
+                            placeholder='Email'
                             className='signUp-input'
                           />
                           {meta.touched && meta.error && <span>{meta.error}</span>}

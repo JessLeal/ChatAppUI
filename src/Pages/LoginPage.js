@@ -22,6 +22,7 @@ const LoginPage = () => {
         login({
           username: userResult.username,
           knownAs: userResult.knownAs,
+          email: userResult.email,
           token: userResult.token,
           photoUrl: userResult?.photoUrl
         })
@@ -69,7 +70,7 @@ const LoginPage = () => {
                 className='logo-svg'
                 alt='logo'
                 src={
-                  theme === 'dark'
+                  theme?.value === 'dark'
                     ? `${process.env.PUBLIC_URL}/Frame 3.svg`
                     : `${process.env.PUBLIC_URL}/Frame 1.svg`
                 }
