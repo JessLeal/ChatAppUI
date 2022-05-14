@@ -35,8 +35,7 @@ const Sidebar = () => {
     <div className={`sidebar ${menuActive ? 'active' : ''}`}>
       <div className='logo-content'>
         <div className='logo' onClick={() => navigate('/')}>
-          <WifiTetheringOutlinedIcon />
-          <div className='logo-name'>ChatApp</div>
+          <img class='logo-svg-small' alt='logo' src={`${process.env.PUBLIC_URL}/Frame 3.svg`} />
         </div>
         <div className='menu-container' onClick={() => setMenuActive(!menuActive)}>
           {menuActive ? (

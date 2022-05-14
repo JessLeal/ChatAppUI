@@ -1,6 +1,6 @@
 import { Form, Field } from 'react-final-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 
 import { useSnackbar } from 'notistack';
 import { signUp } from '../Features/userSlice';
@@ -10,6 +10,7 @@ import './SignUpPage.css';
 const SignUpPage = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
+  const { theme } = useSelector((state) => state.theme);
   const { enqueueSnackbar } = useSnackbar();
 
   const onSignUp = async (values) => {
@@ -53,19 +54,30 @@ const SignUpPage = () => {
     <div className='signUp-container'>
       {Object.keys(user).length === 0 ? (
         <>
-          <div className='signUp-image-container conditional-hide'>
+          <div className='signUp-image-container'>
             <img
-              src={process.env.PUBLIC_URL + 'images/things_to_say.svg'}
+              src={process.env.PUBLIC_URL + 'images/add_info.svg'}
               alt='things_to_say-graphic'
               className='signUp-image'
             />
           </div>
-          <Form
-            onSubmit={onSignUp}
-            render={({ handleSubmit, form, submitting, values }) => (
-              <div className='signUp-form-container'>
+          <div className='signUp-form-container'>
+            <div className='logo-svg-container'>
+              <img
+                className='logo-svg'
+                alt='logo'
+                src={
+                  theme === 'dark'
+                    ? `${process.env.PUBLIC_URL}/Frame 3.svg`
+                    : `${process.env.PUBLIC_URL}/Frame 1.svg`
+                }
+              />
+            </div>
+            <Form
+              onSubmit={onSignUp}
+              render={({ handleSubmit, form, submitting, values }) => (
                 <form onSubmit={handleSubmit} className='signUp-form'>
-                  <div className='signUp-label'>Sign Up</div>
+                  <div className='signUp-label'>SIGN UP</div>
                   <div className='signUp-inputs'>
                     <Field
                       name='email'
@@ -113,15 +125,18 @@ const SignUpPage = () => {
                       Submit
                     </button>
                   </div>
+                  <div className='with-account'>
+                    <p>Already have an account?</p>
+                    <Link to='/login'>Login</Link>
+                  </div>
                 </form>
-              </div>
-            )}
-          />
+              )}
+            />
+          </div>
         </>
       ) : (
         <Navigate to='/' />
       )}
-      ;
     </div>
   );
 };

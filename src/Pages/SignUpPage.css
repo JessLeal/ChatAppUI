@@ -1,14 +1,16 @@
 .signUp-container {
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   position: relative;
   height: 100%;
 }
 
 .signUp-image-container {
-  width: 100%;
-  padding-left: 5%;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
 }
 
 .signUp-container::after {
@@ -23,28 +25,32 @@
 }
 
 .signUp-image {
-  height: auto;
-  width: 85%;
-  margin: auto;
-  z-index: 1;
+  max-width: 100%;
 }
 
 .signUp-form-container {
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  margin-right: 7vw;
+}
+
+.logo-svg-container {
   display: flex;
   justify-content: center;
-  width: 100%;
+}
+
+.logo-svg {
+  height: 3rem;
 }
 
 .signUp-form {
-  border-radius: 0.3rem;
-  box-sizing: border-box;
   padding: 2rem;
-  border: 1px solid var(--accent);
 }
 
 .signUp-label {
-  font-size: 2rem;
+  font-size: 1.5rem;
   line-height: 1;
   margin-bottom: 1rem;
   text-align: center;
@@ -74,4 +80,16 @@
   color: white;
   height: 2rem;
   width: 100%;
+  margin-bottom: 1rem;
+}
+
+.with-account {
+  display: flex;
+  gap: 1rem;
+
+  font-size: 0.85rem;
+}
+
+.with-account a {
+  color: var(--accent);
 }

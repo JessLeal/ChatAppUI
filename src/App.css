@@ -7,11 +7,9 @@
   --outer_space: #2e3532;
   --disabled-grey: #d3d1d1;
   --grey-blur: rgb(46, 53, 50, 0.5);
-  --accent: rgb(35, 206, 107);
-  --accent-blur: rgb(35, 206, 107, 0.2);
+  --accent: rgb(18, 182, 68);
+  --accent-blur: rgb(18, 182, 68, 0.2);
   --secondary: rgb(232, 81, 51);
-  /* --accent: rgb(107, 35, 206);
-  --accent-blur: rgb(107, 35, 206, 0.2); */
   --inner-border: rgb(0, 0, 0, 0.1);
 
   --background-color-1: var(--light_grey);
@@ -150,12 +148,30 @@
     display: none;
   }
 
+  .login-image-container {
+    display: none;
+  }
+
   .login-container::after {
+    display: none;
+  }
+
+  .login-form-container {
+    width: 100vw;
+    margin: auto;
+  }
+
+  .signUp-image-container {
     display: none;
   }
 
   .signUp-container::after {
     display: none;
+  }
+
+  .signUp-form-container {
+    width: 100vw;
+    margin: auto;
   }
 
   .message-container {
