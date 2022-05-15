@@ -74,6 +74,17 @@
   color: var(--disabled-text);
 }
 
+.App .input-label {
+  text-align: left;
+  display: block;
+  font-size: 0.8rem;
+  margin: 0 0 0.2rem 0.4rem;
+}
+
+.conditional-show {
+  display: none !important;
+}
+
 /*dropdown*/
 .dropdown > div {
   border: 1px solid var(--background-color-dark);
@@ -182,12 +193,46 @@
     height: 50%;
   }
 
+  .message-thread-container .chat-thread-label {
+    padding: 0 3rem;
+  }
+
   .profile-container,
   .settings-container {
     margin-top: 4rem;
   }
 
+  .profile-container .profile {
+    gap: 2rem;
+  }
+
+  .profile-container .profile .profile-photo {
+    height: 6rem;
+    width: 6rem;
+  }
+
+  .profile-container .profile .photo-edit {
+    height: 6rem;
+    width: 6rem;
+  }
+
+  .profile-container .profile .profile-form {
+    width: calc(80vw - 6rem);
+  }
+
+  .modal-container .modal-content {
+    min-width: 30rem;
+  }
+
+  .profile-container .photo-modal {
+    width: 20rem;
+  }
+
   .conditional-hide {
-    display: none;
+    display: none !important;
+  }
+
+  .conditional-show {
+    display: block !important;
   }
 }

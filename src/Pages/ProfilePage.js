@@ -3,10 +3,13 @@ import { Form, Field } from 'react-final-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
+
 import Modal from '../Components/Shared/Modal';
 import PhotoUpload from '../Components/Profile/PhotoUpload';
 import axiosBase from '../API/axiosBase';
 import { setUser } from '../Features/userSlice';
+import { startLoading, stopLoading } from '../Features/loadingSlice';
+
 import './ProfilePage.css';
 
 const ProfilePage = () => {
@@ -29,32 +32,55 @@ const ProfilePage = () => {
   };
 
   const photoSubmitHandler = async () => {
-    const payload = new FormData();
+    dispatch(startLoading({ type: 'submit' }));
+    try {
+      const payload = new FormData();
 
-    if (fileSelected) {
-      payload.append('file', fileSelected);
-      const res = await axiosBase.post('/users/add-photo', payload);
+      if (fileSelected) {
+        payload.append('file', fileSelected);
+        const res = await axiosBase.post('/users/add-photo', payload);
 
-      setOpenPhotoModal(false);
-      setFileSelected(null);
-      if (res.status === 201) {
-        return dispatch(setUser({ photoUrl: res.data.url }));
-      } else {
-        return enqueueSnackbar(
-          `An error occured while uploading your photo, please try again later`,
-          {
-            variant: 'error'
-          }
-        );
+        setOpenPhotoModal(false);
+        setFileSelected(null);
+        if (res.status === 201) {
+          return dispatch(setUser({ photoUrl: res.data.url }));
+        } else {
+          return enqueueSnackbar(
+            `An error occured while uploading your photo, please try again later`,
+            {
+              variant: 'error'
+            }
+          );
+        }
       }
-    }
 
-    return enqueueSnackbar(`Please upload a photo`, {
-      variant: 'error'
-    });
+      return enqueueSnackbar(`Please upload a photo`, {
+        variant: 'error'
+      });
+    } finally {
+      dispatch(stopLoading({ type: 'submit' }));
+    }
   };
 
-  const submitHandler = () => {};
+  const submitHandler = async (values) => {
+    dispatch(startLoading({ type: 'submit' }));
+    try {
+      const res = await axiosBase.put('/users', values);
+
+      if (res.status === 204) {
+        return dispatch(setUser({ ...values }));
+      }
+
+      return enqueueSnackbar(
+        `An error occured when updating your profile. Please try again later.`,
+        {
+          variant: 'error'
+        }
+      );
+    } finally {
+      dispatch(stopLoading({ type: 'submit' }));
+    }
+  };
 
   return (
     <div className='profile-container'>
@@ -97,37 +123,45 @@ const ProfilePage = () => {
                 <Field
                   name='username'
                   render={() => (
-                    <input
-                      type='text'
-                      placeholder='Username'
-                      className='profile-input'
-                      value={user.username}
-                      disabled
-                    />
+                    <>
+                      <label htmlFor='Username' className='input-label'>
+                        Username:
+                      </label>
+                      <input
+                        name='Username'
+                        type='text'
+                        className='profile-input'
+                        value={user.username}
+                        disabled
+                      />
+                    </>
                   )}
                 />
                 <Field
                   name='email'
                   render={() => (
-                    <input
-                      type='text'
-                      placeholder='Email'
-                      value={user.email}
-                      className='profile-input'
-                      disabled
-                    />
+                    <>
+                      <label htmlFor='Email' className='input-label'>
+                        Email:
+                      </label>
+                      <input
+                        type='text'
+                        name='Email'
+                        value={user.email}
+                        className='profile-input'
+                        disabled
+                      />
+                    </>
                   )}
                 />
                 <Field
                   name='knownAs'
                   render={({ input, meta }) => (
                     <>
-                      <input
-                        type='text'
-                        {...input}
-                        placeholder='Nickname'
-                        className='profile-input'
-                      />
+                      <label htmlFor='Nickname' className='input-label'>
+                        Nickname:
+                      </label>
+                      <input type='text' {...input} name='Nickname' className='profile-input' />
                       {meta.touched && meta.error && <span>{meta.error}</span>}
                     </>
                   )}
