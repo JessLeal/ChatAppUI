@@ -7,11 +7,9 @@
   --outer_space: #2e3532;
   --disabled-grey: #d3d1d1;
   --grey-blur: rgb(46, 53, 50, 0.5);
-  --accent: rgb(35, 206, 107);
-  --accent-blur: rgb(35, 206, 107, 0.2);
+  --accent: rgb(18, 182, 68);
+  --accent-blur: rgb(18, 182, 68, 0.2);
   --secondary: rgb(232, 81, 51);
-  /* --accent: rgb(107, 35, 206);
-  --accent-blur: rgb(107, 35, 206, 0.2); */
   --inner-border: rgb(0, 0, 0, 0.1);
 
   --background-color-1: var(--light_grey);
@@ -42,7 +40,7 @@
   --inner-border: rgb(252, 252, 252, 0.1);
   --disabled-input: #525252s;
   --disabled-text: #d5d5d5;
-  --overlay: var(--grey-blur);
+  --overlay: rgba(59, 68, 64, 0.6);
 }
 
 * {
@@ -74,6 +72,17 @@
 .App input:disabled {
   background-color: var(--disabled-input);
   color: var(--disabled-text);
+}
+
+.App .input-label {
+  text-align: left;
+  display: block;
+  font-size: 0.8rem;
+  margin: 0 0 0.2rem 0.4rem;
+}
+
+.conditional-show {
+  display: none !important;
 }
 
 /*dropdown*/
@@ -150,12 +159,30 @@
     display: none;
   }
 
+  .login-image-container {
+    display: none;
+  }
+
   .login-container::after {
+    display: none;
+  }
+
+  .login-form-container {
+    width: 100vw;
+    margin: auto;
+  }
+
+  .signUp-image-container {
     display: none;
   }
 
   .signUp-container::after {
     display: none;
+  }
+
+  .signUp-form-container {
+    width: 100vw;
+    margin: auto;
   }
 
   .message-container {
@@ -166,12 +193,46 @@
     height: 50%;
   }
 
+  .message-thread-container .chat-thread-label {
+    padding: 0 3rem;
+  }
+
   .profile-container,
   .settings-container {
     margin-top: 4rem;
   }
 
+  .profile-container .profile {
+    gap: 2rem;
+  }
+
+  .profile-container .profile .profile-photo {
+    height: 6rem;
+    width: 6rem;
+  }
+
+  .profile-container .profile .photo-edit {
+    height: 6rem;
+    width: 6rem;
+  }
+
+  .profile-container .profile .profile-form {
+    width: calc(80vw - 6rem);
+  }
+
+  .modal-container .modal-content {
+    min-width: 30rem;
+  }
+
+  .profile-container .photo-modal {
+    width: 20rem;
+  }
+
   .conditional-hide {
-    display: none;
+    display: none !important;
+  }
+
+  .conditional-show {
+    display: block !important;
   }
 }

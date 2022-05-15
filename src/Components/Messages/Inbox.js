@@ -4,8 +4,11 @@ import { useNavigate, NavLink } from 'react-router-dom';
 import moment from 'moment';
 import RateReviewOutlinedIcon from '@mui/icons-material/RateReviewOutlined';
 
+import Loading from '../Loading/Loading';
+
 const Inbox = ({ inboxMessage, receiverUsername, action }) => {
   const { user } = useSelector((state) => state.user);
+  const { isLoading } = useSelector((state) => state.isLoading);
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -24,44 +27,56 @@ const Inbox = ({ inboxMessage, receiverUsername, action }) => {
         </button>
       </div>
       <div className='inbox-messages-container'>
-        {inboxMessage.map((m) => {
-          let messageUsername, messageKnownAs, messagePhoto;
-          if (user?.username === m.senderUsername) {
-            messageUsername = m.recipientUsername;
-            messageKnownAs = m.recipientKnownAs;
-            messagePhoto = m.receiverPhotoUrl;
-          } else {
-            messageUsername = m.senderUsername;
-            messageKnownAs = m.senderKnownAs;
-            messagePhoto = m.senderPhotoUrl;
-          }
+        <Loading />
 
-          return (
-            <NavLink
-              className='inbox-message-container'
-              key={`${m.senderUsername}-${m.recipientUsername}`}
-              to={`/messages/${messageUsername}?messageKnownAs=${messageKnownAs}`}>
-              <img
-                className='avatar'
-                src={messagePhoto || `${process.env.PUBLIC_URL}/images/user.png`}
-                alt={`${messageUsername}-avatar`}
-              />
-              <div className='message-inner'>
-                <div className='message-header'>
-                  <p className='message-sender'>
-                    {user?.username === m.senderUsername
-                      ? m.recipientKnownAs || m.recipientUsername
-                      : m.senderKnownAs || m.senderUsername}
-                  </p>
-                  <p className='message-time'>
-                    {m.dateSent ? moment(m.dateSent).format('MM/DD/YYYY') : ''}
-                  </p>
-                </div>
-                <p className='message-content'>{m.content}</p>
-              </div>
-            </NavLink>
-          );
-        })}
+        {!isLoading.messages && (
+          <>
+            {Object.keys(inboxMessage).length === 0 ? (
+              <div className='empty-inbox-message'>No messages</div>
+            ) : (
+              <>
+                {inboxMessage.map((m) => {
+                  let messageUsername, messageKnownAs, messagePhoto;
+                  if (user?.username === m.senderUsername) {
+                    messageUsername = m.recipientUsername;
+                    messageKnownAs = m.recipientKnownAs;
+                    messagePhoto = m.receiverPhotoUrl;
+                  } else {
+                    messageUsername = m.senderUsername;
+                    messageKnownAs = m.senderKnownAs;
+                    messagePhoto = m.senderPhotoUrl;
+                  }
+
+                  return (
+                    <NavLink
+                      className='inbox-message-container'
+                      key={`${m.senderUsername}-${m.recipientUsername}`}
+                      to={`/messages/${messageUsername}?messageKnownAs=${messageKnownAs}`}>
+                      <img
+                        className='avatar'
+                        src={messagePhoto || `${process.env.PUBLIC_URL}/images/user.png`}
+                        alt={`${messageUsername}-avatar`}
+                      />
+                      <div className='message-inner'>
+                        <div className='message-header'>
+                          <p className='message-sender'>
+                            {user?.username === m.senderUsername
+                              ? m.recipientKnownAs || m.recipientUsername
+                              : m.senderKnownAs || m.senderUsername}
+                          </p>
+                          <p className='message-time'>
+                            {m.dateSent ? moment(m.dateSent).format('MM/DD/YYYY') : ''}
+                          </p>
+                        </div>
+                        <p className='message-content'>{m.content}</p>
+                      </div>
+                    </NavLink>
+                  );
+                })}
+              </>
+            )}
+          </>
+        )}
       </div>
     </div>
   );

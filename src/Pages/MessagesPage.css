@@ -12,6 +12,7 @@
   flex-direction: column;
   overflow: auto;
   border-right: 1px solid var(--inner-border);
+  position: relative;
 }
 
 .inbox-container .inbox-label-container {
@@ -19,6 +20,9 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--inner-border);
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 
 .inbox-container .message-new-button {
@@ -45,6 +49,9 @@
 }
 
 .inbox-container .inbox-messages-container {
+  position: relative;
+  height: calc(100% - 65px);
+  top: 65px;
   overflow: auto;
 }
 
@@ -66,6 +73,11 @@
 
 .inbox-container .inbox-message-container:hover {
   cursor: pointer;
+}
+
+.inbox-container .empty-inbox-message {
+  padding: 0.5rem 0.9rem;
+  font-size: 1.2rem;
 }
 
 .message-header {
@@ -122,6 +134,31 @@
   padding: 0.5rem 0;
   background-color: var(--background-color-1);
   overflow: hidden;
+}
+
+.message-thread-container .chat-thread-header {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.message-thread-container .chat-header-icon {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  left: 0.7rem;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+
+  color: var(--accent);
+  font-size: 2rem;
+}
+
+.message-thread-container .chat-header-icon:hover {
+  cursor: pointer;
+  left: 0.3rem;
+  transition: 0.3s;
 }
 
 .message-thread-container .chat-thread-label {

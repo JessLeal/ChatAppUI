@@ -14,6 +14,7 @@ import SettingsPage from './Pages/SettingsPage';
 import SignUpPage from './Pages/SignUpPage';
 import AuthorizedPageContainer from './Pages/AuthorizedPageContainer';
 import './App.css';
+import Loading from './Components/Loading/Loading';
 
 function App() {
   const dispatch = useDispatch();
@@ -42,26 +43,27 @@ function App() {
 
   return (
     <div className='App' data-theme={theme.value}>
-      {!isLoading.main ? (
-        <Router>
-          <Routes>
-            <Route exact path='/' element={<LandingPage />} />
-            <Route path='/home' element={<LandingPage />} />
-            <Route path='/login' element={<LoginPage />} />
-            <Route path='/signup' element={<SignUpPage />} />
-            {user && (
-              <Route element={<ProtectedRoute component={<AuthorizedPageContainer />} />}>
-                <Route path='/messages' element={<MessagesPage />} />
-                <Route path='/messages/:receiverUsername' element={<MessagesPage />} />
-                <Route path='/profile' element={<ProfilePage />} />
-                <Route path='/settings' element={<SettingsPage />} />
-              </Route>
-            )}
-            <Route path='*' element={<PageNotFound />} />
-          </Routes>
-        </Router>
-      ) : (
-        <div>Loading</div>
+      {!isLoading.main && (
+        <>
+          {!isLoading.messages && <Loading />}
+          <Router>
+            <Routes>
+              <Route exact path='/' element={<LandingPage />} />
+              <Route path='/home' element={<LandingPage />} />
+              <Route path='/login' element={<LoginPage />} />
+              <Route path='/signup' element={<SignUpPage />} />
+              {user && (
+                <Route element={<ProtectedRoute component={<AuthorizedPageContainer />} />}>
+                  <Route path='/messages' element={<MessagesPage />} />
+                  <Route path='/messages/:receiverUsername' element={<MessagesPage />} />
+                  <Route path='/profile' element={<ProfilePage />} />
+                  <Route path='/settings' element={<SettingsPage />} />
+                </Route>
+              )}
+              <Route path='*' element={<PageNotFound />} />
+            </Routes>
+          </Router>
+        </>
       )}
     </div>
   );

@@ -26,9 +26,8 @@
   align-items: center;
 }
 
-.logo-content .logo svg {
-  color: var(--accent);
-  font-size: 2rem;
+.logo-content .logo img {
+  height: 40px;
   margin-right: 0.4rem;
 }
 
@@ -110,5 +109,5 @@
 }
 
 .conditional-hide {
-  display: auto;
+  display: block;
 }
