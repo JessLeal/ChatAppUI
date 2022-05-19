@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkUser } from './Features/userSlice';
+import { setTheme } from './Features/themeSlice';
 import { startLoading, stopLoading } from './Features/loadingSlice';
 
 import ProtectedRoute from './Components/Layout/ProtectedRoute';
@@ -13,8 +14,8 @@ import ProfilePage from './Pages/ProfilePage';
 import SettingsPage from './Pages/SettingsPage';
 import SignUpPage from './Pages/SignUpPage';
 import AuthorizedPageContainer from './Pages/AuthorizedPageContainer';
-import './App.css';
 import Loading from './Components/Loading/Loading';
+import './App.css';
 
 function App() {
   const dispatch = useDispatch();
@@ -23,14 +24,23 @@ function App() {
   const { theme } = useSelector((state) => state.theme);
 
   useEffect(() => {
-    const fetchUser = async () => {
+    const initialize = async () => {
       dispatch(startLoading({ type: 'main' }));
-      const userStorage = await localStorage.getItem('Token');
-      const initial = userStorage ? await JSON.parse(userStorage) : null;
-      if (initial != null) {
+      //Theme
+      const themeStorage = localStorage.getItem('Theme');
+      console.log(themeStorage);
+      const initialTheme = themeStorage
+        ? await JSON.parse(themeStorage)
+        : { value: 'light', label: 'Light' };
+      dispatch(setTheme(initialTheme));
+
+      //User
+      const userStorage = localStorage.getItem('Token');
+      const initialUser = userStorage ? await JSON.parse(userStorage) : null;
+      if (initialUser != null) {
         dispatch(
           checkUser({
-            ...initial
+            ...initialUser
           })
         );
         return dispatch(stopLoading({ type: 'main' }));
@@ -38,7 +48,8 @@ function App() {
       dispatch(checkUser({}));
       return dispatch(stopLoading({ type: 'main' }));
     };
-    fetchUser();
+
+    initialize();
   }, [dispatch]);
 
   return (
