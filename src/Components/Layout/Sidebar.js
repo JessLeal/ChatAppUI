@@ -37,7 +37,7 @@ const Sidebar = () => {
           <img
             className='logo-svg-small'
             alt='logo'
-            src={`${process.env.PUBLIC_URL}/Frame 3.svg`}
+            src={`${process.env.PUBLIC_URL}/Logo_Light_Text.svg`}
           />
         </div>
         <div className='menu-container' onClick={() => setMenuActive(!menuActive)}>

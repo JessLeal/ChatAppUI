@@ -75,8 +75,8 @@ const SignUpPage = () => {
                 alt='logo'
                 src={
                   theme?.value === 'dark'
-                    ? `${process.env.PUBLIC_URL}/Frame 3.svg`
-                    : `${process.env.PUBLIC_URL}/Frame 1.svg`
+                    ? `${process.env.PUBLIC_URL}/Logo_Light_Text.svg`
+                    : `${process.env.PUBLIC_URL}/Logo.svg`
                 }
               />
             </div>
