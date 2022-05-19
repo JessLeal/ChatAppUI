@@ -12,6 +12,7 @@ const SettingsPage = () => {
 
   const handleChangeTheme = (value) => {
     dispatch(setTheme(value));
+    return localStorage.setItem('Theme', JSON.stringify(value));
   };
 
   return (
