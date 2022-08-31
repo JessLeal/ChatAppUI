@@ -14,8 +14,11 @@ This is the front end repository for the chat app implemented using React and Re
 ## How to run
 
 Download the repository
+
 Open the terminal on the project directory
+
 Create a .env file that contains the URI for the API and the message HUB
+
 Run npm start
 
 ## Features
