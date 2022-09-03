@@ -4,7 +4,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Link
 
-https://chat-app-ui-jessleal.vercel.app/
+Link to Application - https://chat-app-ui-jessleal.vercel.app/
+
+BackEnd Repository - https://github.com/JessLeal/ChatApp
 
 
 ## About
